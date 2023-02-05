@@ -1,0 +1,19 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
+.flex-container {
+  display: flex; /* establish flex container */
+  flex-direction: column; /* make main axis vertical */
+  justify-content: center; /* center items vertically, in this case */
+  align-items: center; /* center items horizontally, in this case */
+  height: 600px;
+}
+.background {
+  background-color: purple;
+  width: 1920px;
+  height: 1080px;
+}
