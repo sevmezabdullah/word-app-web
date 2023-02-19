@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { signIn } from '../../redux/slicer/user';
 
 const AuthNavigator = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
 
   const emailChangeHandler = (e) => {
     setEmail(e.target.value);
@@ -11,6 +15,7 @@ const AuthNavigator = () => {
   const passwordChangeHandler = (e) => {
     setPassword(e.target.value);
   };
+
   return (
     <>
       <div className="background">
@@ -41,12 +46,16 @@ const AuthNavigator = () => {
                 placeholder="Şifre"
               />
             </div>
-            <button style={{ marginTop: '10px' }} className="btn btn-success">
+            <button
+              onClick={() => {
+                dispatch(signIn({ email, password }));
+              }}
+              style={{ marginTop: '10px' }}
+              className="btn btn-success"
+            >
               Giriş Yap
             </button>
           </div>
-
-          <div></div>
         </div>
       </div>
     </>
