@@ -24,7 +24,7 @@ const Navbar = () => {
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav ml-auto">
-          <li className="nav-item active">
+          <li className="nav-item ">
             <a
               onClick={(e) => {
                 changePageOnDashboard(e, 0);
@@ -67,6 +67,28 @@ const Navbar = () => {
               href="/"
             >
               Kelimeler
+            </a>
+          </li>
+          <li className="nav-item">
+            <a
+              className="nav-link "
+              onClick={(e) => {
+                changePageOnDashboard(e, 3);
+              }}
+              href="/"
+            >
+              Quizler
+            </a>
+          </li>
+          <li className="nav-item">
+            <a
+              className="nav-link "
+              onClick={(e) => {
+                changePageOnDashboard(e, 3);
+              }}
+              href="/"
+            >
+              Sorular
             </a>
           </li>
 

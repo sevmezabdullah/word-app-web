@@ -1,6 +1,6 @@
 import React from 'react';
 import io from 'socket.io-client';
-import { localUrls, socketURL } from '../../constants/uri';
+import { socketURL } from '../../constants/uri';
 
 const Home = () => {
   const socket = io(socketURL);
