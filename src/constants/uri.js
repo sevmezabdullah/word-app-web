@@ -21,6 +21,7 @@ export const localUrls = {
   GET_BY_ID: 'http://localhost:3000/category',
   DELETE_CATEGORY_URL: 'http://localhost:3000/category/delete',
   GET_ALL_USER: 'http://localhost:3000/users/getAllUser',
+  GET_USERS_STAT: 'http://localhost:3000/users/stats/',
 };
 
 export const socketURL = 'http://localhost:3000';

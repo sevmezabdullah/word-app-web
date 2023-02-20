@@ -30,11 +30,25 @@ const Users = () => {
       title: 'Ana Dili',
       dataIndex: 'nativeLang',
       key: 'nativeLang',
+      render: (record) => {
+        if (!record) {
+          return <p>Ana dil seçimi yapılmamış</p>;
+        } else {
+          return <p>{record}</p>;
+        }
+      },
     },
     {
       title: 'Hedef Dili',
       dataIndex: 'currentLang',
       key: 'currentLang',
+      render: (record) => {
+        if (!record) {
+          return <p>Hedef dil seçimi yapılmamış</p>;
+        } else {
+          return <p>{record}</p>;
+        }
+      },
     },
     {
       title: 'Seviye',
