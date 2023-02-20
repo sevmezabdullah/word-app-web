@@ -20,7 +20,7 @@ export const localUrls = {
   GET_CATEGORIES: 'http://localhost:3000/category/categories',
   GET_BY_ID: 'http://localhost:3000/category',
   DELETE_CATEGORY_URL: 'http://localhost:3000/category/delete',
-  GET_ALL_USER: 'http://localhost:3000/users',
+  GET_ALL_USER: 'http://localhost:3000/users/getAllUser',
 };
 
 export const socketURL = 'http://localhost:3000';
