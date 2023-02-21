@@ -4,6 +4,7 @@ import { localUrls } from '../../constants/uri';
 const initialState = {
   users: [],
   stats: null,
+  onlineUsers: [],
 };
 
 export const getAllUser = createAsyncThunk('users/getAll', async () => {
@@ -19,6 +20,12 @@ export const getUsersStat = createAsyncThunk('users/stat', async (year) => {
 const usersSlice = createSlice({
   name: 'users',
   initialState,
+
+  reducers: {
+    handleOnlineUsers(state, action) {
+      state.onlineUsers = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllUser.fulfilled, (state, action) => {
@@ -30,4 +37,5 @@ const usersSlice = createSlice({
   },
 });
 
+export const { handleOnlineUsers } = usersSlice.actions;
 export default usersSlice.reducer;

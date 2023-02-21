@@ -1,6 +1,3 @@
-import React from 'react';
-import io from 'socket.io-client';
-import { socketURL } from '../../constants/uri';
 import {
   LineChart,
   Line,
@@ -25,16 +22,13 @@ const sumData = (data) => {
 };
 
 const Home = () => {
-  const socket = io(socketURL);
   const dispatch = useDispatch();
   const currentYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState(currentYear);
 
   const stats = useSelector((state) => state.users.stats) || {};
 
-  socket.on('online', (data) => {
-    console.log(data);
-  });
+  //const onlineUsers = useSelector((state) => state.users.onlineUsers);
 
   useEffect(() => {
     dispatch(getUsersStat(selectedYear));
@@ -75,6 +69,7 @@ const Home = () => {
   const selectChangeHandler = (e) => {
     setSelectedYear(e.value);
   };
+
   return (
     <div style={{ paddingTop: '20px', padding: '20px' }}>
       <div

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,10 +9,12 @@ import {
 import { Table } from 'antd';
 import SupportedLanList from '../../components/ui/SupportedLanList';
 import IncludesWords from '../../components/ui/IncludesWords';
+import AddCategoryDialog from '../../components/dialogs/AddCategoryDialog';
 
 const Categories = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories.categories);
+  const [addDialogOpen, setAddDialogOpen] = useState(false);
 
   const columns = [
     {
@@ -71,6 +73,9 @@ const Categories = () => {
       render: (record) => {
         return (
           <div>
+            <button className="btn btn-success" style={{ marginRight: 10 }}>
+              Kelime Ekle
+            </button>
             <button className="btn btn-warning" style={{ marginRight: 10 }}>
               Düzenle
             </button>
@@ -104,10 +109,23 @@ const Categories = () => {
         <p>
           Toplam <b>{categories.length}</b> kategori kayıtlı.
         </p>
-        <button className="btn btn-success" style={{ padding: 10, margin: 10 }}>
+        <button
+          onClick={(e) => {
+            setAddDialogOpen(true);
+            e.preventDefault();
+          }}
+          className="btn btn-success"
+          style={{ padding: 10, margin: 10 }}
+        >
           Kategori Oluştur
         </button>
       </div>
+      <AddCategoryDialog
+        isOpen={addDialogOpen}
+        onClose={() => {
+          setAddDialogOpen(false);
+        }}
+      />
     </>
   );
 };

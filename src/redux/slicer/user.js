@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { localUrls } from '../../constants/uri';
+import uuid from 'react-uuid';
 const AUTH_URL = localUrls.AUTH_URL;
 const LOGOUT_URL = localUrls.LOGOUT_URL;
 const initialState = {
@@ -8,7 +9,8 @@ const initialState = {
   token: null,
 };
 
-const storeUser = async (user) => {
+const storeUser = async (user, email) => {
+  user.email = email;
   const jsonUser = JSON.stringify(user);
   await localStorage.setItem('user', jsonUser);
 };
@@ -23,18 +25,23 @@ export const getUser = createAsyncThunk('auth/check', async () => {
   }
 });
 export const signIn = createAsyncThunk('auth/user', async (authInfo) => {
+  const sessionId = uuid();
+  await localStorage.setItem('sessionId', sessionId);
   const response = await axios.post(AUTH_URL, {
     email: authInfo.email,
     password: authInfo.password,
+    sessionId: sessionId,
     lang: 'tr',
   });
-  storeUser(response.data);
+  storeUser(response.data, authInfo.email);
   return response.data;
 });
 export const logout = createAsyncThunk('auth/logout', async () => {
   const user = JSON.parse(await localStorage.getItem('user'));
+  const sessionId = await localStorage.getItem('sessionId');
   const response = await axios.post(LOGOUT_URL, {
     userEmail: user.email,
+    sessionId: sessionId,
   });
   await localStorage.clear();
   return response.data;
