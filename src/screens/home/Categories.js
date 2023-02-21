@@ -100,6 +100,14 @@ const Categories = () => {
         dataSource={categories}
         rowKey={(record) => record._id}
       />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <p>
+          Toplam <b>{categories.length}</b> kategori kayıtlı.
+        </p>
+        <button className="btn btn-success" style={{ padding: 10, margin: 10 }}>
+          Kategori Oluştur
+        </button>
+      </div>
     </>
   );
 };

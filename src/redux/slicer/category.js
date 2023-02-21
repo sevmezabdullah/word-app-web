@@ -9,6 +9,7 @@ const initialState = {
 
 const getUser = async () => {
   const token = JSON.parse(await localStorage.getItem('user')).token;
+
   return token;
 };
 
@@ -27,6 +28,7 @@ export const getAllCategory = createAsyncThunk('category/getAll', async () => {
     const response = await axios.get(localUrls.GET_CATEGORIES, {
       headers: { Authorization: `Bearer ${token}` },
     });
+
     return response.data;
   } else {
     return null;

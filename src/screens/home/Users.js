@@ -81,7 +81,11 @@ const Users = () => {
   ];
   return (
     <>
-      <Table columns={columns} dataSource={users.users} />
+      <Table
+        columns={columns}
+        dataSource={users.users}
+        rowKey={(record) => record._id}
+      />
       <p>
         Toplam <b>{users.count}</b> kullanıcı kayıtlı.
       </p>
