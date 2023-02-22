@@ -11,6 +11,7 @@ const initialState = {
 
 const storeUser = async (user, email) => {
   user.email = email;
+  console.log(user);
   const jsonUser = JSON.stringify(user);
   await localStorage.setItem('user', jsonUser);
 };

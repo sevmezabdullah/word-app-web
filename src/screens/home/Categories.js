@@ -15,6 +15,9 @@ const Categories = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories.categories);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
+  useEffect(() => {
+    dispatch(getAllCategory());
+  }, [dispatch]);
 
   const columns = [
     {
@@ -93,41 +96,38 @@ const Categories = () => {
       },
     },
   ];
-
-  useEffect(() => {
-    dispatch(getAllCategory());
-  }, [dispatch]);
-
-  return (
-    <>
-      <Table
-        columns={columns}
-        dataSource={categories}
-        rowKey={(record) => record._id}
-      />
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <p>
-          Toplam <b>{categories.length}</b> kategori kayıtlı.
-        </p>
-        <button
-          onClick={(e) => {
-            setAddDialogOpen(true);
-            e.preventDefault();
+  if (categories !== null) {
+    return (
+      <>
+        <Table
+          columns={columns}
+          dataSource={categories}
+          rowKey={(record) => record._id}
+        />
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <p>
+            Toplam <b>{categories.length}</b> kategori kayıtlı.
+          </p>
+          <button
+            onClick={(e) => {
+              setAddDialogOpen(true);
+              e.preventDefault();
+            }}
+            className="btn btn-success"
+            style={{ padding: 10, margin: 10 }}
+          >
+            Kategori Oluştur
+          </button>
+        </div>
+        <AddCategoryDialog
+          isOpen={addDialogOpen}
+          onClose={() => {
+            setAddDialogOpen(false);
           }}
-          className="btn btn-success"
-          style={{ padding: 10, margin: 10 }}
-        >
-          Kategori Oluştur
-        </button>
-      </div>
-      <AddCategoryDialog
-        isOpen={addDialogOpen}
-        onClose={() => {
-          setAddDialogOpen(false);
-        }}
-      />
-    </>
-  );
+        />
+      </>
+    );
+  }
 };
 
 export default Categories;

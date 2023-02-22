@@ -1,9 +1,11 @@
 import { useDispatch } from 'react-redux';
 import { logout } from '../../redux/slicer/user';
 import { changePage } from '../../redux/slicer/pageManager';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import LogoutDialog from '../dialogs/LogoutDialog';
 const Navbar = () => {
   const dispatch = useDispatch();
+  const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
 
   useEffect(() => {}, [dispatch]);
   const changePageOnDashboard = (e, index) => {
@@ -73,7 +75,7 @@ const Navbar = () => {
             <a
               className="nav-link "
               onClick={(e) => {
-                changePageOnDashboard(e, 3);
+                changePageOnDashboard(e, 4);
               }}
               href="/"
             >
@@ -84,7 +86,7 @@ const Navbar = () => {
             <a
               className="nav-link "
               onClick={(e) => {
-                changePageOnDashboard(e, 3);
+                changePageOnDashboard(e, 5);
               }}
               href="/"
             >
@@ -97,7 +99,7 @@ const Navbar = () => {
               className="nav-link "
               onClick={(e) => {
                 e.preventDefault();
-                dispatch(logout());
+                setIsLogoutDialogOpen(true);
               }}
               href="/"
             >
@@ -106,6 +108,15 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
+      <LogoutDialog
+        isOpen={isLogoutDialogOpen}
+        onClose={() => {
+          setIsLogoutDialogOpen(false);
+        }}
+        logout={(e) => {
+          dispatch(logout());
+        }}
+      />
     </nav>
   );
 };

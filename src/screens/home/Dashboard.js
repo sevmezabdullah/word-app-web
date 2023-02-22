@@ -5,6 +5,8 @@ import Categories from './Categories';
 import Home from './Home';
 import Users from './Users';
 import Words from './Words';
+import Quizs from './Quizs';
+import Questions from './Questions';
 
 const Dashboard = () => {
   const pageManager = useSelector((state) => state.pageManager.currentIndex);
@@ -20,6 +22,12 @@ const Dashboard = () => {
   }
   if (pageManager === 3) {
     page = <Words />;
+  }
+  if (pageManager === 4) {
+    page = <Quizs />;
+  }
+  if (pageManager === 5) {
+    page = <Questions />;
   }
 
   return (

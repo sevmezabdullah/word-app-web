@@ -8,9 +8,8 @@ const initialState = {
 };
 
 const getUser = async () => {
-  const token = JSON.parse(await localStorage.getItem('user')).token;
-
-  return token;
+  const user = JSON.parse(await localStorage.getItem('user'));
+  return user.token;
 };
 
 export const deleteCategoryById = createAsyncThunk(
@@ -24,14 +23,13 @@ export const deleteCategoryById = createAsyncThunk(
 );
 export const getAllCategory = createAsyncThunk('category/getAll', async () => {
   const token = await getUser();
+  console.log(token);
   if (token) {
     const response = await axios.get(localUrls.GET_CATEGORIES, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
     return response.data;
-  } else {
-    return null;
   }
 });
 export const categoriesSlice = createSlice({
@@ -41,6 +39,7 @@ export const categoriesSlice = createSlice({
     builder
       .addCase(getAllCategory.fulfilled, (state, action) => {
         state.categories = action.payload;
+        console.log(action.payload);
       })
       .addCase(deleteCategoryById.fulfilled, (state, action) => {
         state.categories = action.payload;
