@@ -2,10 +2,13 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllQuiz } from '../../redux/slicer/quiz';
 import { Table } from 'antd';
+import { useState } from 'react';
+import AddQuizDialog from '../../components/dialogs/AddQuizDialog';
 
 const Quizs = () => {
   const dispatch = useDispatch();
   const quizs = useSelector((state) => state.quiz.quizs);
+  const [isQuizDialogOpen, setIsQuizDialogOpen] = useState(false);
   useEffect(() => {
     dispatch(getAllQuiz());
   }, [dispatch]);
@@ -60,13 +63,21 @@ const Quizs = () => {
           Toplam <b>{quizs.length}</b> quiz kayıtlı.
         </p>
         <button
-          onClick={(e) => {}}
+          onClick={(e) => {
+            setIsQuizDialogOpen(true);
+          }}
           className="btn btn-success"
           style={{ padding: 10, margin: 10 }}
         >
           Quiz Hazırla
         </button>
       </div>
+      <AddQuizDialog
+        isOpen={isQuizDialogOpen}
+        onClose={() => {
+          setIsQuizDialogOpen(false);
+        }}
+      />
     </>
   );
 };

@@ -24,6 +24,7 @@ export const localUrls = {
   GET_USERS_STAT: 'http://localhost:3000/users/stats/',
   GET_ALL_WORDS: 'http://localhost:3000/words',
   GET_ALL_QUIZS: 'http://localhost:3000/quiz/getAll',
+  GET_ALL_QUESTIONS: 'http://localhost:3000/question/getAll',
 };
 
 export const socketURL = 'http://localhost:3000';

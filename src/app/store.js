@@ -5,6 +5,7 @@ import categoryReducer from '../redux/slicer/category';
 import usersReducer from '../redux/slicer/users';
 import wordsReducer from '../redux/slicer/words';
 import quizReducer from '../redux/slicer/quiz';
+import questionReducer from '../redux/slicer/question';
 export const store = configureStore({
   reducer: {
     user: userReducer,
@@ -13,5 +14,6 @@ export const store = configureStore({
     users: usersReducer,
     words: wordsReducer,
     quiz: quizReducer,
+    question: questionReducer,
   },
 });
