@@ -15,6 +15,7 @@ const Categories = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories.categories);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
+
   useEffect(() => {
     dispatch(getAllCategory());
   }, [dispatch]);
@@ -25,6 +26,24 @@ const Categories = () => {
       dataIndex: 'awardId',
       key: 'awardIds',
       width: 30,
+    },
+    {
+      title: 'Resim',
+      dataIndex: 'imageUri',
+      key: 'imageUri',
+      width: 80,
+      render: (record) => {
+        return (
+          <div>
+            <img
+              style={{ width: '80px', height: '80px' }}
+              src={record}
+              alt=""
+              srcset=""
+            />
+          </div>
+        );
+      },
     },
     {
       title: 'Kelime Sayısı',
@@ -65,14 +84,14 @@ const Categories = () => {
       title: 'Kelimeler',
       dataIndex: 'words',
       key: 'words',
-      width: 50,
+      width: 60,
       render: (record) => {
         return <IncludesWords words={record} />;
       },
     },
     {
       title: 'İşlemler',
-      width: 50,
+      width: 150,
       render: (record) => {
         return (
           <div>
@@ -84,7 +103,6 @@ const Categories = () => {
             </button>
             <button
               onClick={() => {
-                console.log('Data');
                 dispatch(deleteCategoryById(record._id));
               }}
               className="btn btn-danger"

@@ -18,6 +18,29 @@ const Words = () => {
       dataIndex: '_id',
       key: '_id',
     },
+    {
+      title: 'Kelimeler',
+      dataIndex: 'words',
+      key: 'words',
+    },
+    {
+      title: 'Cümleler',
+      dataIndex: 'sentences',
+      key: 'sentences',
+    },
+    {
+      title: 'İşlemler',
+      dataIndex: 'process',
+      key: 'process',
+      render: () => {
+        return (
+          <div>
+            <button className="btn btn-warning">Düzenle</button>
+            <button className="btn btn-danger">Sil</button>
+          </div>
+        );
+      },
+    },
   ];
 
   return (

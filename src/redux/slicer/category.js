@@ -35,6 +35,7 @@ export const getAllCategory = createAsyncThunk('category/getAll', async () => {
 export const categoriesSlice = createSlice({
   name: 'categories',
   initialState,
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getAllCategory.fulfilled, (state, action) => {
@@ -42,6 +43,9 @@ export const categoriesSlice = createSlice({
         console.log(action.payload);
       })
       .addCase(deleteCategoryById.fulfilled, (state, action) => {
+        state.categories = state.categoriesContainer.map(
+          (category) => category._id !== action.payload.categoryId
+        );
         state.categories = action.payload;
       });
   },
