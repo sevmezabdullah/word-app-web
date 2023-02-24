@@ -8,7 +8,7 @@ import {
 } from '../../redux/slicer/category';
 import { Table } from 'antd';
 import SupportedLanList from '../../components/ui/SupportedLanList';
-import IncludesWords from '../../components/ui/IncludesWords';
+
 import AddCategoryDialog from '../../components/dialogs/AddCategoryDialog';
 
 const Categories = () => {
@@ -70,7 +70,7 @@ const Categories = () => {
     },
 
     {
-      title: 'Desteklenen Diller',
+      title: 'İçerik',
       dataIndex: 'titles',
       key: 'titles',
       width: 80,
@@ -85,15 +85,7 @@ const Categories = () => {
         return <SupportedLanList langCodes={codes} meanings={meanings} />;
       },
     },
-    {
-      title: 'Kelimeler',
-      dataIndex: 'words',
-      key: 'words',
-      width: 60,
-      render: (record) => {
-        return <IncludesWords words={record} />;
-      },
-    },
+
     {
       title: 'İşlemler',
       width: 150,

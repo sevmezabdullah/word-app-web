@@ -26,6 +26,7 @@ export const localUrls = {
   GET_ALL_QUIZS: 'http://localhost:3000/quiz/getAll',
   GET_ALL_QUESTIONS: 'http://localhost:3000/question/getAll',
   POST_CATEGORY: 'http://localhost:3000/category/create',
+  POST_WORD: 'http://localhost:3000/words/create',
 };
 
 export const socketURL = 'http://localhost:3000';

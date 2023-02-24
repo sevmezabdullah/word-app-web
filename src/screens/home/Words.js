@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllWords } from '../../redux/slicer/words';
 import { Table } from 'antd';
 import AddWordDialog from '../../components/dialogs/AddWordDialog';
+import WordDetailDialog from '../../components/dialogs/WordDetailDialog';
 const Words = () => {
   const dispatch = useDispatch();
   const words = useSelector((state) => state.words.words);
 
+  const [isWordDetailDialogOpen, setIsWordDetailDialogOpen] = useState(false);
   const [isAddWordDialogOpen, setIsWordDialogOpen] = useState(false);
+
   useEffect(() => {
     dispatch(getAllWords());
   }, [dispatch]);
@@ -17,25 +20,37 @@ const Words = () => {
       title: 'Word ID',
       dataIndex: '_id',
       key: '_id',
+      width: 100,
     },
     {
-      title: 'Kelimeler',
+      title: 'İçerik',
       dataIndex: 'words',
       key: 'words',
+      render: (record) => {
+        return (
+          <button
+            onClick={() => {
+              setIsWordDetailDialogOpen(true);
+            }}
+            className="btn btn-success"
+          >
+            Detaylar
+          </button>
+        );
+      },
     },
-    {
-      title: 'Cümleler',
-      dataIndex: 'sentences',
-      key: 'sentences',
-    },
+
     {
       title: 'İşlemler',
       dataIndex: 'process',
       key: 'process',
-      render: () => {
+      width: 200,
+      render: (record) => {
         return (
           <div>
-            <button className="btn btn-warning">Düzenle</button>
+            <button style={{ marginRight: 10 }} className="btn btn-warning">
+              Düzenle
+            </button>
             <button className="btn btn-danger">Sil</button>
           </div>
         );
@@ -54,22 +69,41 @@ const Words = () => {
         <p>
           Toplam <b>{words.length}</b> kelime kayıtlı.
         </p>
-        <button
-          onClick={(e) => {
-            setIsWordDialogOpen(true);
+
+        <div>
+          <button
+            onClick={(e) => {
+              setIsWordDialogOpen(true);
+            }}
+            className="btn btn-success"
+            style={{ padding: 10, margin: 10 }}
+          >
+            Kelime Ekle
+          </button>
+          <button
+            onClick={(e) => {
+              /* setIsWordDialogOpen(true); */
+            }}
+            className="btn btn-success"
+            style={{ padding: 10, margin: 10 }}
+          >
+            Toplu Kelime Ekle (Excel)
+          </button>
+        </div>
+
+        <AddWordDialog
+          isOpen={isAddWordDialogOpen}
+          onClose={() => {
+            setIsWordDialogOpen(false);
           }}
-          className="btn btn-success"
-          style={{ padding: 10, margin: 10 }}
-        >
-          Kelime Ekle
-        </button>
+        />
+        <WordDetailDialog
+          isOpen={isWordDetailDialogOpen}
+          onClose={() => {
+            setIsWordDetailDialogOpen(false);
+          }}
+        />
       </div>
-      <AddWordDialog
-        isOpen={isAddWordDialogOpen}
-        onClose={() => {
-          setIsWordDialogOpen(false);
-        }}
-      />
     </>
   );
 };

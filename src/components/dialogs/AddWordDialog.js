@@ -7,6 +7,8 @@ import {
 } from '@mui/material';
 import AddRemoveInputField from '../ui/AddRemoveInputFieldWord';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { postWord } from '../../redux/slicer/words';
 const placeHoldersWord = {
   key: 'Dil Kodu',
   value: 'Kelime',
@@ -17,6 +19,8 @@ const placeHolderSentences = {
   value: 'Cümle',
 };
 const AddWordDialog = ({ isOpen, onClose }) => {
+  const dispatch = useDispatch();
+
   const [words, setWords] = useState([
     {
       langCode: '',
@@ -31,9 +35,7 @@ const AddWordDialog = ({ isOpen, onClose }) => {
 
   return (
     <Dialog open={isOpen} onClose={onClose}>
-      <DialogTitle>
-        <h5>Kelime Ekle</h5>
-      </DialogTitle>
+      <DialogTitle>Kelime Ekle</DialogTitle>
       <DialogContent>
         <div>
           <h6>Kelimeler</h6>
@@ -68,7 +70,15 @@ const AddWordDialog = ({ isOpen, onClose }) => {
         >
           Vazgeç
         </button>
-        <button className="btn btn-success">Oluştur</button>
+        <button
+          onClick={() => {
+            dispatch(postWord({ words: words, sentences: sentences }));
+            onClose();
+          }}
+          className="btn btn-success"
+        >
+          Oluştur
+        </button>
       </DialogActions>
     </Dialog>
   );

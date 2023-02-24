@@ -7,6 +7,10 @@ const initialState = {
   isLoading: false,
 };
 
+export const postWord = createAsyncThunk('words/create', async (word) => {
+  const response = await axios.post(localUrls.POST_WORD, word);
+  return response.data;
+});
 export const getAllWords = createAsyncThunk('words/getAll', async () => {
   const response = await axios.get(localUrls.GET_ALL_WORDS);
   return response.data;
@@ -23,6 +27,9 @@ const wordsSlice = createSlice({
       .addCase(getAllWords.fulfilled, (state, action) => {
         state.isLoading = true;
         state.words = action.payload;
+      })
+      .addCase(postWord.fulfilled, (state, action) => {
+        state.words.push(action.payload);
       });
   },
 });
