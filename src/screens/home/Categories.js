@@ -29,8 +29,8 @@ const Categories = () => {
     },
     {
       title: 'Resim',
-      dataIndex: 'imageUri',
-      key: 'imageUri',
+      dataIndex: 'logo',
+      key: 'logo',
       width: 80,
       render: (record) => {
         return (
@@ -39,7 +39,6 @@ const Categories = () => {
               style={{ width: '80px', height: '80px' }}
               src={record}
               alt=""
-              srcset=""
             />
           </div>
         );

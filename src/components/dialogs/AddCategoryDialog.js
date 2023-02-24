@@ -5,6 +5,8 @@ import DialogContent from '@mui/material/DialogContent';
 import { useState } from 'react';
 import DialogTitle from '@mui/material/DialogTitle';
 import AddRemoveInputField from '../ui/AddRemoveInputField';
+import { useDispatch } from 'react-redux';
+import { postCategory } from '../../redux/slicer/category';
 
 const placeholders = {
   key: 'Dil Kodu',
@@ -17,9 +19,16 @@ const AddCategoryDialog = ({ isOpen, onClose }) => {
     },
   ]);
   const [awardId, setAwardId] = useState('');
+  const [image, setImage] = useState(null);
+  const dispatch = useDispatch();
 
   const handleAwardId = (e) => {
     setAwardId(e.target.value);
+  };
+
+  const imageHandler = (event) => {
+    const file = event.target.files[0];
+    setImage(file);
   };
 
   const clearForm = () => {
@@ -29,6 +38,7 @@ const AddCategoryDialog = ({ isOpen, onClose }) => {
         langCode: '',
       },
     ]);
+    setImage(null);
   };
   return (
     <Dialog open={isOpen} onClose={onClose}>
@@ -38,11 +48,16 @@ const AddCategoryDialog = ({ isOpen, onClose }) => {
       <DialogContent>
         <div className="container">
           <div className="form-group">
-            <div class="mb-3">
-              <label for="formFile" class="form-label">
+            <div className="mb-3">
+              <label for="formFile" className="form-label">
                 Resim
               </label>
-              <input class="form-control" type="file" id="formFile" />
+              <input
+                onChange={imageHandler}
+                className="form-control"
+                type="file"
+                id="image"
+              />
             </div>
             <input
               placeholder="Kazanım ID "
@@ -72,8 +87,14 @@ const AddCategoryDialog = ({ isOpen, onClose }) => {
         </button>
         <button
           onClick={() => {
-            console.log(inputFields);
+            const category = {
+              titles: inputFields[0],
+              awardId: awardId,
+              logo: image,
+            };
+            dispatch(postCategory(category));
             clearForm();
+            onClose();
           }}
           className="btn btn-success"
         >

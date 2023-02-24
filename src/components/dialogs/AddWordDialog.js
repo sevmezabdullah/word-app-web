@@ -7,17 +7,28 @@ import {
 } from '@mui/material';
 import AddRemoveInputField from '../ui/AddRemoveInputFieldWord';
 import { useState } from 'react';
+const placeHoldersWord = {
+  key: 'Dil Kodu',
+  value: 'Kelime',
+};
 
+const placeHolderSentences = {
+  key: 'Dil Kodu',
+  value: 'Cümle',
+};
 const AddWordDialog = ({ isOpen, onClose }) => {
   const [words, setWords] = useState([
     {
       langCode: '',
     },
   ]);
-  const placeHolders = {
-    key: 'Dil Kodu',
-    value: 'Kelime',
-  };
+
+  const [sentences, setSentences] = useState([
+    {
+      langCode: '',
+    },
+  ]);
+
   return (
     <Dialog open={isOpen} onClose={onClose}>
       <DialogTitle>
@@ -27,14 +38,34 @@ const AddWordDialog = ({ isOpen, onClose }) => {
         <div>
           <h6>Kelimeler</h6>
           <AddRemoveInputField
-            placeHolders={placeHolders}
+            placeHolders={placeHoldersWord}
             inputFields={words}
             setInputFields={setWords}
+          />
+          <AddRemoveInputField
+            placeHolders={placeHolderSentences}
+            inputFields={sentences}
+            setInputFields={setSentences}
           />
         </div>
       </DialogContent>
       <DialogActions>
-        <button onClick={onClose} className="btn btn-danger">
+        <button
+          onClick={() => {
+            onClose();
+            setWords([
+              {
+                langCode: '',
+              },
+            ]);
+            setSentences([
+              {
+                langCode: '',
+              },
+            ]);
+          }}
+          className="btn btn-danger"
+        >
           Vazgeç
         </button>
         <button className="btn btn-success">Oluştur</button>
