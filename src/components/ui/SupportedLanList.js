@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Search } from '@mui/icons-material';
 import CategoryDetailDialog from '../dialogs/CategoryDetailDialog';
 
-const SupportedLanList = ({ langCodes }) => {
+const SupportedLanList = ({ langCodes, meanings }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -21,6 +21,7 @@ const SupportedLanList = ({ langCodes }) => {
         }}
         isOpen={isOpen}
         languages={langCodes}
+        meanings={meanings}
       />
     </>
   );

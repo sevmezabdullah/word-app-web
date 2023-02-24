@@ -5,18 +5,30 @@ import {
   DialogContent,
   DialogActions,
 } from '@mui/material';
-const CategoryDetailDialog = ({ isOpen, onClose, languages }) => {
+const CategoryDetailDialog = ({ isOpen, onClose, languages, meanings }) => {
   return (
     <Dialog open={isOpen} onClose={onClose}>
       <DialogTitle>
         <h5>Desteklenen Diller</h5>
       </DialogTitle>
       <DialogContent>
-        <ul className="list-group">
-          {languages.map((language) => (
-            <li className="list-group-item">{language}</li>
-          ))}
-        </ul>
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">Dil</th>
+              <th scope="col">Anlam</th>
+            </tr>
+          </thead>
+          <tbody>
+            {languages.map((language, index) => (
+              <tr key={index}>
+                <td>{language}</td>
+                <td>{meanings[index]}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <ul className="list-group"></ul>
       </DialogContent>
       <DialogActions>
         <button onClick={onClose} className="btn btn-danger">

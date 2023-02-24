@@ -42,14 +42,12 @@ const AddCategoryDialog = ({ isOpen, onClose }) => {
   };
   return (
     <Dialog open={isOpen} onClose={onClose}>
-      <DialogTitle>
-        <h5>Kategori Oluştur</h5>
-      </DialogTitle>
+      <DialogTitle>Kategori Oluştur</DialogTitle>
       <DialogContent>
         <div className="container">
           <div className="form-group">
             <div className="mb-3">
-              <label for="formFile" className="form-label">
+              <label htmlFor="formFile" className="form-label">
                 Resim
               </label>
               <input
@@ -87,8 +85,9 @@ const AddCategoryDialog = ({ isOpen, onClose }) => {
         </button>
         <button
           onClick={() => {
+            console.log('inputs : ', inputFields);
             const category = {
-              titles: inputFields[0],
+              titles: inputFields,
               awardId: awardId,
               logo: image,
             };

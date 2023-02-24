@@ -23,7 +23,7 @@ export const deleteCategoryById = createAsyncThunk(
 );
 export const getAllCategory = createAsyncThunk('category/getAll', async () => {
   const token = await getUser();
-  console.log(token);
+
   if (token) {
     const response = await axios.get(localUrls.GET_CATEGORIES, {
       headers: { Authorization: `Bearer ${token}` },
@@ -38,6 +38,7 @@ export const postCategory = createAsyncThunk(
   async (category) => {
     const formData = new FormData();
     const jsonTitles = JSON.stringify(category.titles);
+
     formData.append('logo', category.logo);
     formData.append('awardId', category.awardId);
     formData.append('titles', jsonTitles);

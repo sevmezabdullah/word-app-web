@@ -75,8 +75,14 @@ const Categories = () => {
       key: 'titles',
       width: 80,
       render: (record) => {
-        const langCodes = Object.keys(record);
-        return <SupportedLanList langCodes={langCodes} />;
+        const codes = [];
+        const meanings = [];
+        record.forEach((item) => {
+          codes.push(item.langCode);
+          meanings.push(item.meaning);
+        });
+
+        return <SupportedLanList langCodes={codes} meanings={meanings} />;
       },
     },
     {
