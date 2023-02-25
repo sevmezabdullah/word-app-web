@@ -9,6 +9,7 @@ const Words = () => {
   const words = useSelector((state) => state.words.words);
 
   const [isWordDetailDialogOpen, setIsWordDetailDialogOpen] = useState(false);
+  const [selectedWord, setSelectedWord] = useState(null);
   const [isAddWordDialogOpen, setIsWordDialogOpen] = useState(false);
 
   useEffect(() => {
@@ -22,14 +23,32 @@ const Words = () => {
       key: '_id',
       width: 100,
     },
+
     {
-      title: 'İçerik',
+      title: 'Türkçe',
       dataIndex: 'words',
       key: 'words',
+      width: 100,
+      render: (record) => {
+        //TODO
+        //sadece türkçe kelimeleri getirecek şekilde tekrar ayarlanacak
+        let meaning = null;
+        record.forEach((word) => {
+          if (word.langCode === 'tr') {
+            meaning = word.meaning;
+          }
+        });
+        return <div>{meaning}</div>;
+      },
+    },
+    {
+      title: 'İçerik',
       render: (record) => {
         return (
           <button
             onClick={() => {
+              console.log(record);
+              setSelectedWord(record);
               setIsWordDetailDialogOpen(true);
             }}
             className="btn btn-success"
@@ -98,6 +117,7 @@ const Words = () => {
           }}
         />
         <WordDetailDialog
+          selectedWord={selectedWord}
           isOpen={isWordDetailDialogOpen}
           onClose={() => {
             setIsWordDetailDialogOpen(false);
