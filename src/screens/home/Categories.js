@@ -88,19 +88,23 @@ const Categories = () => {
 
     {
       title: 'İşlemler',
+      dataIndex: '_id',
+      key: '_id',
       width: 150,
       render: (record) => {
         return (
           <div>
-            <button className="btn btn-success" style={{ marginRight: 10 }}>
+            <button
+              onClick={() => {}}
+              className="btn btn-success"
+              style={{ marginRight: 10 }}
+            >
               Kelime Ekle
             </button>
-            <button className="btn btn-warning" style={{ marginRight: 10 }}>
-              Düzenle
-            </button>
+
             <button
               onClick={() => {
-                dispatch(deleteCategoryById(record._id));
+                dispatch(deleteCategoryById(record));
               }}
               className="btn btn-danger"
             >

@@ -8,9 +8,7 @@ import {
 const CategoryDetailDialog = ({ isOpen, onClose, languages, meanings }) => {
   return (
     <Dialog open={isOpen} onClose={onClose}>
-      <DialogTitle>
-        <h5>Desteklenen Diller</h5>
-      </DialogTitle>
+      <DialogTitle>Desteklenen Diller</DialogTitle>
       <DialogContent>
         <table className="table">
           <thead>

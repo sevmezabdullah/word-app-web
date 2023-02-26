@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllWords } from '../../redux/slicer/words';
+import { deleteWord, getAllWords } from '../../redux/slicer/words';
 import { Table } from 'antd';
 import AddWordDialog from '../../components/dialogs/AddWordDialog';
 import WordDetailDialog from '../../components/dialogs/WordDetailDialog';
+import AddWordWithExcel from '../../components/dialogs/AddWordWithExcel';
 const Words = () => {
   const dispatch = useDispatch();
   const words = useSelector((state) => state.words.words);
@@ -11,7 +12,7 @@ const Words = () => {
   const [isWordDetailDialogOpen, setIsWordDetailDialogOpen] = useState(false);
   const [selectedWord, setSelectedWord] = useState(null);
   const [isAddWordDialogOpen, setIsWordDialogOpen] = useState(false);
-
+  const [addWordWithExcelDialog, setAddWordWithExcelDialog] = useState(false);
   useEffect(() => {
     dispatch(getAllWords());
   }, [dispatch]);
@@ -47,7 +48,6 @@ const Words = () => {
         return (
           <button
             onClick={() => {
-              console.log(record);
               setSelectedWord(record);
               setIsWordDetailDialogOpen(true);
             }}
@@ -61,16 +61,20 @@ const Words = () => {
 
     {
       title: 'İşlemler',
-      dataIndex: 'process',
-      key: 'process',
+      dataIndex: '_id',
+      key: '_id',
       width: 200,
       render: (record) => {
         return (
           <div>
-            <button style={{ marginRight: 10 }} className="btn btn-warning">
-              Düzenle
+            <button
+              onClick={(e) => {
+                dispatch(deleteWord(record));
+              }}
+              className="btn btn-danger"
+            >
+              Sil
             </button>
-            <button className="btn btn-danger">Sil</button>
           </div>
         );
       },
@@ -102,11 +106,12 @@ const Words = () => {
           <button
             onClick={(e) => {
               /* setIsWordDialogOpen(true); */
+              setAddWordWithExcelDialog(true);
             }}
             className="btn btn-success"
             style={{ padding: 10, margin: 10 }}
           >
-            Toplu Kelime Ekle (Excel)
+            Kelime Ekle (Excel)
           </button>
         </div>
 
@@ -121,6 +126,12 @@ const Words = () => {
           isOpen={isWordDetailDialogOpen}
           onClose={() => {
             setIsWordDetailDialogOpen(false);
+          }}
+        />
+        <AddWordWithExcel
+          isOpen={addWordWithExcelDialog}
+          onClose={() => {
+            setAddWordWithExcelDialog(false);
           }}
         />
       </div>

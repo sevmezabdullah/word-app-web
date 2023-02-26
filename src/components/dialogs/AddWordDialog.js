@@ -73,6 +73,16 @@ const AddWordDialog = ({ isOpen, onClose }) => {
         <button
           onClick={() => {
             dispatch(postWord({ words: words, sentences: sentences }));
+            setWords([
+              {
+                langCode: '',
+              },
+            ]);
+            setSentences([
+              {
+                langCode: '',
+              },
+            ]);
             onClose();
           }}
           className="btn btn-success"

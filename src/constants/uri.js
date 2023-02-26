@@ -27,6 +27,10 @@ export const localUrls = {
   GET_ALL_QUESTIONS: 'http://localhost:3000/question/getAll',
   POST_CATEGORY: 'http://localhost:3000/category/create',
   POST_WORD: 'http://localhost:3000/words/create',
+  DELETE_WORD: 'http://localhost:3000/words/delete',
+  ADD_WORD_TO_CATEGORY: 'http://localhost:3000/category/addWord',
+  GET_CATEGORY_BY_ID: 'http://localhost:3000/category/',
+  GET_WORDS_BY_CATEGORY_ID: 'http://localhost:3000/category/getWords/',
 };
 
 export const socketURL = 'http://localhost:3000';
