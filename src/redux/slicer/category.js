@@ -7,7 +7,7 @@ const initialState = {
   categoriesContainer: [],
   currentCategory: null,
   includeWords: [],
-  filteredWords: [],
+  ableWords: [],
 };
 
 const getUser = async () => {
@@ -96,6 +96,8 @@ export const categoriesSlice = createSlice({
   name: 'categories',
   initialState,
 
+  reducers: {},
+
   extraReducers: (builder) => {
     builder
       .addCase(getAllCategory.fulfilled, (state, action) => {
@@ -116,7 +118,6 @@ export const categoriesSlice = createSlice({
       })
       .addCase(getCategoryWordsById.fulfilled, (state, action) => {
         state.includeWords = action.payload;
-        console.log(action.payload);
       });
   },
 });

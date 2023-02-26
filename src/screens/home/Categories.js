@@ -1,3 +1,4 @@
+import AddWordToCategory from '../../components/dialogs/AddWordToCategory';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { format } from 'date-fns';
@@ -10,12 +11,15 @@ import { Table } from 'antd';
 import SupportedLanList from '../../components/ui/SupportedLanList';
 
 import AddCategoryDialog from '../../components/dialogs/AddCategoryDialog';
+import DeleteDialog from '../../components/dialogs/DeleteDialog';
 
 const Categories = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories.categories);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
-
+  const [addWordCategoryDialog, setAddWordCategoryDialog] = useState(false);
+  const [deleteDialog, setDeleteDialog] = useState(false);
+  const [currentCategory, setCurrentCategory] = useState(null);
   useEffect(() => {
     dispatch(getAllCategory());
   }, [dispatch]);
@@ -95,7 +99,10 @@ const Categories = () => {
         return (
           <div>
             <button
-              onClick={() => {}}
+              onClick={() => {
+                setCurrentCategory(record);
+                setAddWordCategoryDialog(true);
+              }}
               className="btn btn-success"
               style={{ marginRight: 10 }}
             >
@@ -104,12 +111,22 @@ const Categories = () => {
 
             <button
               onClick={() => {
-                dispatch(deleteCategoryById(record));
+                setDeleteDialog(true);
               }}
               className="btn btn-danger"
             >
               Sil
             </button>
+
+            <DeleteDialog
+              isOpen={deleteDialog}
+              onClose={() => {
+                setDeleteDialog(false);
+              }}
+              deleteFunction={() => {
+                dispatch(deleteCategoryById(record));
+              }}
+            />
           </div>
         );
       },
@@ -142,6 +159,13 @@ const Categories = () => {
           isOpen={addDialogOpen}
           onClose={() => {
             setAddDialogOpen(false);
+          }}
+        />
+        <AddWordToCategory
+          category={currentCategory}
+          isOpen={addWordCategoryDialog}
+          onClose={() => {
+            setAddWordCategoryDialog(false);
           }}
         />
       </>

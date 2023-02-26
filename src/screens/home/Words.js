@@ -4,7 +4,8 @@ import { deleteWord, getAllWords } from '../../redux/slicer/words';
 import { Table } from 'antd';
 import AddWordDialog from '../../components/dialogs/AddWordDialog';
 import WordDetailDialog from '../../components/dialogs/WordDetailDialog';
-import AddWordWithExcel from '../../components/dialogs/AddWordWithExcel';
+import DeleteDialog from '../../components/dialogs/DeleteDialog';
+
 const Words = () => {
   const dispatch = useDispatch();
   const words = useSelector((state) => state.words.words);
@@ -12,7 +13,7 @@ const Words = () => {
   const [isWordDetailDialogOpen, setIsWordDetailDialogOpen] = useState(false);
   const [selectedWord, setSelectedWord] = useState(null);
   const [isAddWordDialogOpen, setIsWordDialogOpen] = useState(false);
-  const [addWordWithExcelDialog, setAddWordWithExcelDialog] = useState(false);
+  const [deleteDialog, setDeleteDialog] = useState(false);
   useEffect(() => {
     dispatch(getAllWords());
   }, [dispatch]);
@@ -69,12 +70,21 @@ const Words = () => {
           <div>
             <button
               onClick={(e) => {
-                dispatch(deleteWord(record));
+                setDeleteDialog(true);
               }}
               className="btn btn-danger"
             >
               Sil
             </button>
+            <DeleteDialog
+              isOpen={deleteDialog}
+              deleteFunction={() => {
+                dispatch(deleteWord(record));
+              }}
+              onClose={() => {
+                setDeleteDialog(false);
+              }}
+            />
           </div>
         );
       },
@@ -103,16 +113,6 @@ const Words = () => {
           >
             Kelime Ekle
           </button>
-          <button
-            onClick={(e) => {
-              /* setIsWordDialogOpen(true); */
-              setAddWordWithExcelDialog(true);
-            }}
-            className="btn btn-success"
-            style={{ padding: 10, margin: 10 }}
-          >
-            Kelime Ekle (Excel)
-          </button>
         </div>
 
         <AddWordDialog
@@ -126,12 +126,6 @@ const Words = () => {
           isOpen={isWordDetailDialogOpen}
           onClose={() => {
             setIsWordDetailDialogOpen(false);
-          }}
-        />
-        <AddWordWithExcel
-          isOpen={addWordWithExcelDialog}
-          onClose={() => {
-            setAddWordWithExcelDialog(false);
           }}
         />
       </div>
