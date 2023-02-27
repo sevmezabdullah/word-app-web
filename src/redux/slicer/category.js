@@ -8,6 +8,8 @@ const initialState = {
   currentCategory: null,
   includeWords: [],
   ableWords: [],
+  addingWord: 'idle',
+  allWords: [],
 };
 
 const getUser = async () => {
@@ -55,11 +57,8 @@ export const getAllCategory = createAsyncThunk('category/getAll', async () => {
 
 export const addWordToCategory = createAsyncThunk(
   'category/addWord',
-  async (categoryId, wordId) => {
-    const response = await axios.post(localUrls.ADD_WORD_TO_CATEGORY, {
-      categoryId: categoryId,
-      wordId: wordId,
-    });
+  async (info) => {
+    const response = await axios.post(localUrls.ADD_WORD_TO_CATEGORY, info);
     return response.data;
   }
 );
@@ -87,8 +86,6 @@ export const getCategoryWordsById = createAsyncThunk(
     const response = await axios.get(
       localUrls.GET_WORDS_BY_CATEGORY_ID + categoryId
     );
-
-    console.log(response.data);
     return response.data;
   }
 );
@@ -96,7 +93,21 @@ export const categoriesSlice = createSlice({
   name: 'categories',
   initialState,
 
-  reducers: {},
+  reducers: {
+    addWordToCategoryHandler(state, action) {
+      state.includeWords.push(action.payload);
+    },
+    removeWordFromCategoryHandler(state, action) {},
+    fillAllWords(state, action) {
+      state.allWords = action.payload.words;
+      console.log(action.payload.words);
+    },
+    compareLists(state, action) {
+      const { words, includeWords } = action.payload;
+      console.log('Kelimelerin tamamı : ', words);
+      console.log('Kategorinin içerdiği kelimeler', includeWords);
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -112,7 +123,9 @@ export const categoriesSlice = createSlice({
       .addCase(postCategory.fulfilled, (state, action) => {
         state.categories.push(action.payload);
       })
-      .addCase(addWordToCategory, (state, action) => {})
+      .addCase(addWordToCategory, (state, action) => {
+        state.addingWord = 'fullFilled';
+      })
       .addCase(getCategoryById.fulfilled, (state, action) => {
         state.currentCategory = action.payload;
       })
@@ -121,5 +134,10 @@ export const categoriesSlice = createSlice({
       });
   },
 });
-
+export const {
+  addWordToCategoryHandler,
+  removeWordFromCategoryHandler,
+  fillAllWords,
+  compareLists,
+} = categoriesSlice.actions;
 export default categoriesSlice.reducer;

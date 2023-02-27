@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   getAllCategory,
   deleteCategoryById,
+  getCategoryWordsById,
 } from '../../redux/slicer/category';
 import { Table } from 'antd';
 import SupportedLanList from '../../components/ui/SupportedLanList';
@@ -101,6 +102,7 @@ const Categories = () => {
             <button
               onClick={() => {
                 setCurrentCategory(record);
+                dispatch(getCategoryWordsById(record));
                 setAddWordCategoryDialog(true);
               }}
               className="btn btn-success"

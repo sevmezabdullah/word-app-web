@@ -30,7 +30,6 @@ const wordsSlice = createSlice({
       state.words = [
         ...state.words.filter((word) => word._id !== action.payload.wordId),
       ];
-      console.log(action.payload.wordId);
     },
   },
   extraReducers: (builder) => {
