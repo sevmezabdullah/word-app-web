@@ -13,6 +13,7 @@ import {
   fillAllWords,
   compareLists,
   getCategoryWordsById,
+  removeWordFromCategoryHandler,
 } from '../../redux/slicer/category';
 import { getAllWords } from '../../redux/slicer/words';
 
@@ -58,9 +59,16 @@ const AddWordToCategory = ({ isOpen, onClose, category }) => {
     },
     {
       title: 'İşlemler',
+      dataIndex: '_id',
+      key: '_id',
       render: (record) => {
         return (
-          <button onClick={(e) => {}} className="btn btn-danger">
+          <button
+            onClick={(e) => {
+              dispatch(removeWordFromCategoryHandler({ wordId: record }));
+            }}
+            className="btn btn-danger"
+          >
             Çıkar
           </button>
         );

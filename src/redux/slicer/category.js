@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { localUrls } from '../../constants/uri';
 
@@ -97,7 +97,21 @@ export const categoriesSlice = createSlice({
     addWordToCategoryHandler(state, action) {
       state.includeWords.push(action.payload);
     },
-    removeWordFromCategoryHandler(state, action) {},
+    removeWordFromCategoryHandler(state, action) {
+      /*  const wordId = action.payload.wordId;
+      /*    state.includeWords = state.includeWords.map(
+        (word) => word._id !== wordId
+      );
+ */
+      /*      const filteredData = [];
+      current(state.includeWords).map((word) => {
+        if (word._id !== wordId) {
+          filteredData.push(word);
+        }
+      });
+
+      state.includeWords = filteredData; */
+    },
     fillAllWords(state, action) {
       state.allWords = action.payload.words;
       console.log(action.payload.words);
