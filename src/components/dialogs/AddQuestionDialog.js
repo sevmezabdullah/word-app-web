@@ -4,49 +4,110 @@ import {
   DialogContent,
   DialogTitle,
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
+import { postQuestion } from '../../redux/slicer/question';
+import { useDispatch } from 'react-redux';
 
 const AddQuestionDialog = ({ isOpen, onClose }) => {
+  const dispatch = useDispatch();
+  const [question, setQuestion] = useState('');
+  const [answerA, setAnswerA] = useState('');
+  const [answerB, setAnswerB] = useState('');
+  const [answerC, setAnswerC] = useState('');
+  const [answerD, setAnswerD] = useState('');
+  const [correctAnswer, setCorrectAnswer] = useState('');
+  const [difficulty, setDifficulty] = useState('kolay');
+  const correctAnswerHandler = (e) => {
+    setCorrectAnswer(e.target.value);
+  };
+  const questionHandler = (e) => {
+    setQuestion(e.target.value);
+  };
+
+  const answerAhandler = (e) => {
+    setAnswerA(e.target.value);
+  };
+  const answerBhandler = (e) => {
+    setAnswerB(e.target.value);
+  };
+  const answerChandler = (e) => {
+    setAnswerC(e.target.value);
+  };
+  const answerDhandler = (e) => {
+    setAnswerD(e.target.value);
+  };
+
   return (
     <Dialog open={isOpen} onClose={onClose}>
-      <DialogTitle>
-        <h5>Soru Oluştur</h5>
-      </DialogTitle>
+      <DialogTitle>Soru Oluştur</DialogTitle>
       <DialogContent>
         <div>
           <h6>Zorluk</h6>
-          <select className="form-select" aria-label="Default select example">
-            <option selected value="kolay">
+          <select
+            onChange={(e) => {
+              setDifficulty(e.target.value);
+            }}
+            className="form-select"
+            aria-label="Default select example"
+          >
+            <option defaultValue={'kolay'} value="kolay">
               Kolay
             </option>
             <option value="orta">Orta</option>
             <option value="zor">Zor</option>
           </select>
           <h6>Soru</h6>
-          <input type="text" className="form-control" />
+          <input
+            onChange={questionHandler}
+            value={question}
+            type="text"
+            className="form-control"
+          />
           <h6>Cevap A</h6>
-          <input type="text" className="form-control" />
+          <input
+            value={answerA}
+            onChange={answerAhandler}
+            type="text"
+            className="form-control"
+          />
           <h6>Cevap B</h6>
-          <input type="text" className="form-control" />
+          <input
+            value={answerB}
+            onChange={answerBhandler}
+            type="text"
+            className="form-control"
+          />
           <h6>Cevap C</h6>
-          <input type="text" className="form-control" />
+          <input
+            value={answerC}
+            onChange={answerChandler}
+            type="text"
+            className="form-control"
+          />
           <h6>Cevap D</h6>
-          <input type="text" className="form-control" />
+          <input
+            onChange={answerDhandler}
+            value={answerD}
+            type="text"
+            className="form-control"
+          />
 
           <h6>Doğru Cevap</h6>
-          <ul className="list-group" style={{}}>
-            <li className="list-group-item">
-              A <input type="radio" name="A" id="A" />
-            </li>
-            <li className="list-group-item">
-              B <input type="radio" name="A" id="A" />
-            </li>
-            <li className="list-group-item">
-              C <input type="radio" name="A" id="A" />
-            </li>
-            <li className="list-group-item">
-              D <input type="radio" name="A" id="A" />
-            </li>
+          <ul className="list-group">
+            <div onChange={correctAnswerHandler.bind(this)}>
+              <li className="list-group-item">
+                A <input value={answerA} type="radio" name="A" id="A" />
+              </li>
+              <li className="list-group-item">
+                B <input value={answerB} type="radio" name="A" id="A" />
+              </li>
+              <li className="list-group-item">
+                C <input value={answerC} type="radio" name="A" id="A" />
+              </li>
+              <li className="list-group-item">
+                D <input value={answerD} type="radio" name="A" id="A" />
+              </li>
+            </div>
           </ul>
         </div>
       </DialogContent>
@@ -54,7 +115,26 @@ const AddQuestionDialog = ({ isOpen, onClose }) => {
         <button onClick={onClose} className="btn btn-danger">
           Vazgeç
         </button>
-        <button className="btn btn-success">Oluştur</button>
+        <button
+          onClick={() => {
+            dispatch(
+              postQuestion({
+                question: question,
+                answerA: answerA,
+                answerB: answerB,
+                answerC: answerC,
+                answerD: answerD,
+                answerCorrect: correctAnswer,
+                difficulty: difficulty,
+                langCode: 'tr',
+              })
+            );
+            onClose();
+          }}
+          className="btn btn-success"
+        >
+          Oluştur
+        </button>
       </DialogActions>
     </Dialog>
   );

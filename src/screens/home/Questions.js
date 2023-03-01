@@ -1,17 +1,24 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllQuestion } from '../../redux/slicer/question';
+import { getAllQuestion, deleteQuestion } from '../../redux/slicer/question';
 import { Table } from 'antd';
 import AddQuestionDialog from '../../components/dialogs/AddQuestionDialog';
+import DeleteDialog from '../../components/dialogs/DeleteDialog';
 const Questions = () => {
   const dispatch = useDispatch();
 
   const [isAddQuestionDialogOpen, setIsAddQuestionDialogOpen] = useState(false);
+  const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const questions = useSelector((state) => state.question.questions);
   useEffect(() => {
     dispatch(getAllQuestion());
   }, [dispatch]);
+
+  const deleleteQuestion = () => {
+    dispatch(deleteQuestion({ id: selectedQuestion }));
+  };
   const columns = [
     {
       title: 'Question ID',
@@ -56,19 +63,27 @@ const Questions = () => {
     },
     {
       title: 'Doğru Cevap',
-      dataIndex: 'correctAnswer',
-      key: 'correctAnswer',
+      dataIndex: 'answerCorrect',
+      key: 'answerCorrect',
     },
 
     {
       title: 'İşlemler',
-      dataIndex: 'process',
-      key: 'process',
-      render: () => {
+      dataIndex: '_id',
+      key: '_id',
+      render: (record) => {
         return (
           <div>
             <button className="btn btn-warning">Düzenle</button>
-            <button className="btn btn-danger">Sil</button>
+            <button
+              onClick={() => {
+                setIsDeleteDialogOpen(true);
+                setSelectedQuestion(record);
+              }}
+              className="btn btn-danger ms-3"
+            >
+              Sil
+            </button>
           </div>
         );
       },
@@ -76,7 +91,11 @@ const Questions = () => {
   ];
   return (
     <>
-      <Table dataSource={questions} columns={columns} />
+      <Table
+        rowKey={(record) => record._id}
+        dataSource={questions}
+        columns={columns}
+      />
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <p>
           Toplam <b>{questions.length}</b> soru kayıtlı.
@@ -97,6 +116,13 @@ const Questions = () => {
         onClose={() => {
           setIsAddQuestionDialogOpen(false);
         }}
+      />
+      <DeleteDialog
+        isOpen={isDeleteDialogOpen}
+        onClose={() => {
+          setIsDeleteDialogOpen(false);
+        }}
+        deleteFunction={deleleteQuestion}
       />
     </>
   );
