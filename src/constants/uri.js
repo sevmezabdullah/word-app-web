@@ -29,6 +29,7 @@ export const localUrls = {
   POST_WORD: 'http://localhost:3000/words/create',
   DELETE_WORD: 'http://localhost:3000/words/delete',
   ADD_WORD_TO_CATEGORY: 'http://localhost:3000/category/addWord',
+  REMOVE_WORD_FROM_CATEGORY: 'http://localhost:3000/category/removeWord',
   GET_CATEGORY_BY_ID: 'http://localhost:3000/category/',
   GET_WORDS_BY_CATEGORY_ID: 'http://localhost:3000/category/getWords/',
 };

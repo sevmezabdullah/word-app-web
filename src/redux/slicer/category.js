@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { localUrls } from '../../constants/uri';
 
@@ -6,10 +6,6 @@ const initialState = {
   categories: [],
   categoriesContainer: [],
   currentCategory: null,
-  includeWords: [],
-  ableWords: [],
-  addingWord: 'idle',
-  allWords: [],
 };
 
 const getUser = async () => {
@@ -89,6 +85,16 @@ export const getCategoryWordsById = createAsyncThunk(
     return response.data;
   }
 );
+export const removeWordFromCategory = createAsyncThunk(
+  'words/remove',
+  async (wordId, categoryId) => {
+    const response = await axios.post(localUrls.REMOVE_WORD_FROM_CATEGORY, {
+      wordId: wordId,
+      categoryId: categoryId,
+    });
+    return response.data;
+  }
+);
 export const categoriesSlice = createSlice({
   name: 'categories',
   initialState,
@@ -96,30 +102,6 @@ export const categoriesSlice = createSlice({
   reducers: {
     addWordToCategoryHandler(state, action) {
       state.includeWords.push(action.payload);
-    },
-    removeWordFromCategoryHandler(state, action) {
-      /*  const wordId = action.payload.wordId;
-      /*    state.includeWords = state.includeWords.map(
-        (word) => word._id !== wordId
-      );
- */
-      /*      const filteredData = [];
-      current(state.includeWords).map((word) => {
-        if (word._id !== wordId) {
-          filteredData.push(word);
-        }
-      });
-
-      state.includeWords = filteredData; */
-    },
-    fillAllWords(state, action) {
-      state.allWords = action.payload.words;
-      console.log(action.payload.words);
-    },
-    compareLists(state, action) {
-      const { words, includeWords } = action.payload;
-      console.log('Kelimelerin tamamı : ', words);
-      console.log('Kategorinin içerdiği kelimeler', includeWords);
     },
   },
 
@@ -137,21 +119,21 @@ export const categoriesSlice = createSlice({
       .addCase(postCategory.fulfilled, (state, action) => {
         state.categories.push(action.payload);
       })
-      .addCase(addWordToCategory, (state, action) => {
+      .addCase(addWordToCategory.fulfilled, (state, action) => {
         state.addingWord = 'fullFilled';
+        state.currentCategory = action.payload;
       })
       .addCase(getCategoryById.fulfilled, (state, action) => {
         state.currentCategory = action.payload;
       })
       .addCase(getCategoryWordsById.fulfilled, (state, action) => {
         state.includeWords = action.payload;
+      })
+      .addCase(removeWordFromCategory.fulfilled, (state, action) => {
+        state.currentCategory = action.payload;
       });
   },
 });
-export const {
-  addWordToCategoryHandler,
-  removeWordFromCategoryHandler,
-  fillAllWords,
-  compareLists,
-} = categoriesSlice.actions;
+export const { addWordToCategoryHandler, removeWordFromCategoryHandler } =
+  categoriesSlice.actions;
 export default categoriesSlice.reducer;
