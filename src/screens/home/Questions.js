@@ -24,6 +24,17 @@ const Questions = () => {
       key: 'difficulty',
     },
     {
+      title: 'Dil',
+      dataIndex: 'langCode',
+      key: 'langCode',
+    },
+    {
+      title: 'Soru',
+      dataIndex: 'question',
+      key: 'question',
+    },
+
+    {
       title: 'Cevap A',
       dataIndex: 'answerA',
       key: 'answerA',
