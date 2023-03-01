@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUser } from '../../redux/slicer/users';
 import { Table } from 'antd';
 import { format } from 'date-fns';
+import UserDetailDialog from '../../components/dialogs/UserDetailDialog';
 const Users = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
+  const [isDetailDialogOpen, setIsDetailDialogOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
   useEffect(() => {
     dispatch(getAllUser());
   }, [dispatch]);
@@ -76,6 +79,36 @@ const Users = () => {
         const date = new Date(record);
         const formattedDate = format(date, 'dd/MM/yyyy hh:ss a');
         return <p>{formattedDate}</p>;
+      },
+    },
+    {
+      title: 'İşlemler',
+
+      render: (record) => {
+        return (
+          <div>
+            <button
+              onClick={() => {
+                setIsDetailDialogOpen(true);
+                setSelectedUser(record);
+              }}
+              className="btn btn-success"
+            >
+              Detay
+            </button>
+            {selectedUser !== null ? (
+              <UserDetailDialog
+                isOpen={isDetailDialogOpen}
+                user={selectedUser}
+                onClose={() => {
+                  setIsDetailDialogOpen(false);
+                }}
+              />
+            ) : (
+              <div></div>
+            )}
+          </div>
+        );
       },
     },
   ];

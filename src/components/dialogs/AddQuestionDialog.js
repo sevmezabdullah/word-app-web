@@ -10,6 +10,8 @@ import { useDispatch } from 'react-redux';
 
 const AddQuestionDialog = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
+
+  const [langCode, setLangCode] = useState('en');
   const [question, setQuestion] = useState('');
   const [answerA, setAnswerA] = useState('');
   const [answerB, setAnswerB] = useState('');
@@ -37,6 +39,14 @@ const AddQuestionDialog = ({ isOpen, onClose }) => {
     setAnswerD(e.target.value);
   };
 
+  const cleanForm = () => {
+    setQuestion('');
+    setAnswerA('');
+    setAnswerB('');
+    setAnswerC('');
+    setAnswerD('');
+    setCorrectAnswer('');
+  };
   return (
     <Dialog open={isOpen} onClose={onClose}>
       <DialogTitle>Soru Oluştur</DialogTitle>
@@ -55,6 +65,21 @@ const AddQuestionDialog = ({ isOpen, onClose }) => {
             </option>
             <option value="orta">Orta</option>
             <option value="zor">Zor</option>
+          </select>
+          <h6>Hedef Dil</h6>
+          <select
+            onChange={(e) => {
+              setLangCode(e.target.value);
+            }}
+            className="form-select"
+            aria-label="Default select example"
+          >
+            <option defaultValue={'en'} value="en">
+              İngilizce
+            </option>
+            <option value="tr">Türkçe</option>
+            <option value="ar">Arapça</option>
+            <option value="fr">Fransızca</option>
           </select>
           <h6>Soru</h6>
           <input
@@ -126,9 +151,10 @@ const AddQuestionDialog = ({ isOpen, onClose }) => {
                 answerD: answerD,
                 answerCorrect: correctAnswer,
                 difficulty: difficulty,
-                langCode: 'tr',
+                langCode: langCode,
               })
             );
+            cleanForm();
             onClose();
           }}
           className="btn btn-success"
