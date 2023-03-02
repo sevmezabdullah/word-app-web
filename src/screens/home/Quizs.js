@@ -5,10 +5,12 @@ import { Table } from 'antd';
 import { useState } from 'react';
 import AddQuizDialog from '../../components/dialogs/AddQuizDialog';
 import { getAllQuestion } from '../../redux/slicer/question';
+import DeleteDialog from '../../components/dialogs/DeleteDialog';
 const Quizs = () => {
   const dispatch = useDispatch();
   const quizs = useSelector((state) => state.quiz.quizs);
   const [isQuizDialogOpen, setIsQuizDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   useEffect(() => {
     dispatch(getAllQuiz());
   }, [dispatch]);
@@ -64,12 +66,21 @@ const Quizs = () => {
           <div>
             <button
               onClick={() => {
-                dispatch(deleteQuiz({ id: record }));
+                setIsDeleteDialogOpen(true);
               }}
               className="btn btn-danger"
             >
               Sil
             </button>
+            <DeleteDialog
+              isOpen={isDeleteDialogOpen}
+              onClose={() => {
+                setIsDeleteDialogOpen(false);
+              }}
+              deleteFunction={() => {
+                dispatch(deleteQuiz({ id: record }));
+              }}
+            />
           </div>
         );
       },

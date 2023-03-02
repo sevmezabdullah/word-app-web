@@ -74,7 +74,6 @@ const Questions = () => {
       render: (record) => {
         return (
           <div>
-            <button className="btn btn-warning">Düzenle</button>
             <button
               onClick={() => {
                 setIsDeleteDialogOpen(true);
