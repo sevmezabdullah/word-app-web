@@ -88,7 +88,11 @@ const Quizs = () => {
   ];
   return (
     <>
-      <Table dataSource={quizs} columns={columns} />
+      <Table
+        rowKey={(record) => record._id}
+        dataSource={quizs}
+        columns={columns}
+      />
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <p>
           Toplam <b>{quizs.length}</b> quiz kayıtlı.
