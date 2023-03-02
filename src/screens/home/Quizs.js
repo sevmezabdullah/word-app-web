@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllQuiz } from '../../redux/slicer/quiz';
+import { deleteQuiz, getAllQuiz } from '../../redux/slicer/quiz';
 import { Table } from 'antd';
 import { useState } from 'react';
 import AddQuizDialog from '../../components/dialogs/AddQuizDialog';
-
+import { getAllQuestion } from '../../redux/slicer/question';
 const Quizs = () => {
   const dispatch = useDispatch();
   const quizs = useSelector((state) => state.quiz.quizs);
@@ -51,7 +51,27 @@ const Quizs = () => {
       key: 'questions',
       width: 200,
       render: (record) => {
-        return <p>{record.questions.length}</p>;
+        return <p>{record.length}</p>;
+      },
+    },
+    {
+      title: 'İşlemler',
+      width: 100,
+      dataIndex: '_id',
+      key: '_id',
+      render: (record) => {
+        return (
+          <div>
+            <button
+              onClick={() => {
+                dispatch(deleteQuiz({ id: record }));
+              }}
+              className="btn btn-danger"
+            >
+              Sil
+            </button>
+          </div>
+        );
       },
     },
   ];
@@ -65,6 +85,7 @@ const Quizs = () => {
         <button
           onClick={(e) => {
             setIsQuizDialogOpen(true);
+            dispatch(getAllQuestion());
           }}
           className="btn btn-success"
           style={{ padding: 10, margin: 10 }}

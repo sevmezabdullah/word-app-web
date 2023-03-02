@@ -34,6 +34,8 @@ export const localUrls = {
   GET_WORDS_BY_CATEGORY_ID: 'http://localhost:3000/category/getWords/',
   POST_QUESTION: 'http://localhost:3000/question/post',
   DELETE_QUESTION: 'http://localhost:3000/question/delete',
+  POST_QUIZ: 'http://localhost:3000/quiz/post',
+  DELETE_QUIZ: 'http://localhost:3000/quiz/delete',
 };
 
 export const socketURL = 'http://localhost:3000';

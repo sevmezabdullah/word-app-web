@@ -13,6 +13,7 @@ import SupportedLanList from '../../components/ui/SupportedLanList';
 
 import AddCategoryDialog from '../../components/dialogs/AddCategoryDialog';
 import DeleteDialog from '../../components/dialogs/DeleteDialog';
+import { getAllWords } from '../../redux/slicer/words';
 
 const Categories = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ const Categories = () => {
   const [currentCategory, setCurrentCategory] = useState(null);
   useEffect(() => {
     dispatch(getAllCategory());
+    dispatch(getAllWords());
   }, [dispatch]);
 
   const columns = [
