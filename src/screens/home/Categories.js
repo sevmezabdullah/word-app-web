@@ -115,22 +115,13 @@ const Categories = () => {
 
             <button
               onClick={() => {
+                setCurrentCategory(record);
                 setDeleteDialog(true);
               }}
               className="btn btn-danger"
             >
               Sil
             </button>
-
-            <DeleteDialog
-              isOpen={deleteDialog}
-              onClose={() => {
-                setDeleteDialog(false);
-              }}
-              deleteFunction={() => {
-                dispatch(deleteCategoryById(record));
-              }}
-            />
           </div>
         );
       },
@@ -170,6 +161,16 @@ const Categories = () => {
           isOpen={addWordCategoryDialog}
           onClose={() => {
             setAddWordCategoryDialog(false);
+          }}
+        />
+
+        <DeleteDialog
+          isOpen={deleteDialog}
+          onClose={() => {
+            setDeleteDialog(false);
+          }}
+          deleteFunction={() => {
+            dispatch(deleteCategoryById(currentCategory));
           }}
         />
       </>
