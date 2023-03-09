@@ -14,6 +14,7 @@ import SupportedLanList from '../../components/ui/SupportedLanList';
 import AddCategoryDialog from '../../components/dialogs/AddCategoryDialog';
 import DeleteDialog from '../../components/dialogs/DeleteDialog';
 import { getAllWords } from '../../redux/slicer/words';
+import SelectQuizDialog from '../../components/dialogs/SelectQuizDialog';
 
 const Categories = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const Categories = () => {
   const [addWordCategoryDialog, setAddWordCategoryDialog] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [currentCategory, setCurrentCategory] = useState(null);
+  const [selectQuiz, setSelectQuiz] = useState(false);
   useEffect(() => {
     dispatch(getAllCategory());
     dispatch(getAllWords());
@@ -115,6 +117,16 @@ const Categories = () => {
 
             <button
               onClick={() => {
+                setSelectQuiz(true);
+              }}
+              style={{ marginRight: 10 }}
+              className="btn btn-warning"
+            >
+              Quiz Tanımla
+            </button>
+
+            <button
+              onClick={() => {
                 setCurrentCategory(record);
                 setDeleteDialog(true);
               }}
@@ -163,7 +175,12 @@ const Categories = () => {
             setAddWordCategoryDialog(false);
           }}
         />
-
+        <SelectQuizDialog
+          isOpen={selectQuiz}
+          onClose={() => {
+            setSelectQuiz(false);
+          }}
+        />
         <DeleteDialog
           isOpen={deleteDialog}
           onClose={() => {
