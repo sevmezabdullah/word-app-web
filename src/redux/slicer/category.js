@@ -21,6 +21,27 @@ export const getCategoryById = createAsyncThunk(
     return response.data;
   }
 );
+
+export const deleteQuizFromCategory = createAsyncThunk(
+  'category/deleteQuiz',
+  async (categoryId) => {
+    const response = await axios.post(localUrls.DELETE_QUIZ_TO_CATEGORY, {
+      categoryId: categoryId,
+    });
+    return response.data;
+  }
+);
+export const addQuizToCategory = createAsyncThunk(
+  'category/addQuiz',
+  async (quizId, categoryId) => {
+    const response = await axios.post(localUrls.ADD_QUIZ_TO_CATEGORY, {
+      quizId: quizId,
+      categoryId: categoryId,
+    });
+    console.log(response.data);
+    return response.data;
+  }
+);
 export const deleteCategoryById = createAsyncThunk(
   'category/delete',
   async (id) => {
@@ -131,6 +152,11 @@ export const categoriesSlice = createSlice({
       })
       .addCase(removeWordFromCategory.fulfilled, (state, action) => {
         state.currentCategory = action.payload;
+      })
+      .addCase(deleteQuizFromCategory.fulfilled, (state, action) => {
+        state.currentCategory = action.payload;
+      }).addCase(addQuizToCategory.fulfilled,(state,action)=>{
+        state.currentCategory=action.payload
       });
   },
 });

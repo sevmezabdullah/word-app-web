@@ -117,6 +117,8 @@ const Categories = () => {
 
             <button
               onClick={() => {
+                setCurrentCategory(record);
+                dispatch(getCategoryWordsById(record));
                 setSelectQuiz(true);
               }}
               style={{ marginRight: 10 }}

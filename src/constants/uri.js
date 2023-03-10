@@ -29,6 +29,9 @@ export const localUrls = {
   DELETE_QUESTION: 'http://localhost:3000/question/delete',
   POST_QUIZ: 'http://localhost:3000/quiz/post',
   DELETE_QUIZ: 'http://localhost:3000/quiz/delete',
+  ADD_QUIZ_TO_CATEGORY: 'http://localhost:3000/category/addQuizToCategory',
+  DELETE_QUIZ_TO_CATEGORY:
+    'http://localhost:3000/category/deleteQuizToCategory',
 };
 
 export const socketURL = 'http://localhost:3000';
