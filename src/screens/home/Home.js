@@ -76,7 +76,6 @@ const Home = () => {
         className="card"
         style={{
           width: '850px',
-
           height: '450px',
         }}
       >

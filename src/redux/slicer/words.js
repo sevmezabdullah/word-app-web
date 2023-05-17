@@ -6,6 +6,7 @@ const initialState = {
   words: [],
   wordsContainer: [],
   isLoading: false,
+  selectedWord: null,
 };
 
 export const postWord = createAsyncThunk('words/create', async (word) => {
@@ -31,6 +32,10 @@ const wordsSlice = createSlice({
         ...state.words.filter((word) => word._id !== action.payload.wordId),
       ];
     },
+
+    changeSelectedWord(state, action) {
+      state.selectedWord = action.payload.selectedWord;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -51,5 +56,5 @@ const wordsSlice = createSlice({
       });
   },
 });
-export const { removeWordsFromList } = wordsSlice.actions;
+export const { removeWordsFromList, changeSelectedWord } = wordsSlice.actions;
 export default wordsSlice.reducer;

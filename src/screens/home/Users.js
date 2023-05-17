@@ -4,6 +4,7 @@ import { getAllUser } from '../../redux/slicer/users';
 import { Table } from 'antd';
 import { format } from 'date-fns';
 import UserDetailDialog from '../../components/dialogs/UserDetailDialog';
+
 const Users = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
@@ -119,6 +120,7 @@ const Users = () => {
         dataSource={users.users}
         rowKey={(record) => record._id}
       />
+
       <p>
         Toplam <b>{users.count}</b> kullanıcı kayıtlı.
       </p>

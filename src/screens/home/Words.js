@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteWord, getAllWords } from '../../redux/slicer/words';
+import {
+  deleteWord,
+  getAllWords,
+  changeSelectedWord,
+} from '../../redux/slicer/words';
 import { Table } from 'antd';
 import AddWordDialog from '../../components/dialogs/AddWordDialog';
 import WordDetailDialog from '../../components/dialogs/WordDetailDialog';
 import DeleteDialog from '../../components/dialogs/DeleteDialog';
+import EditWordDialog from '../../components/dialogs/EditWordDialog';
 
 const Words = () => {
   const dispatch = useDispatch();
@@ -14,6 +19,7 @@ const Words = () => {
   const [selectedWord, setSelectedWord] = useState(null);
   const [isAddWordDialogOpen, setIsWordDialogOpen] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);
+  const [editDialog, setEditDialog] = useState(false);
   useEffect(() => {
     dispatch(getAllWords());
   }, [dispatch]);
@@ -62,12 +68,21 @@ const Words = () => {
 
     {
       title: 'İşlemler',
-      dataIndex: '_id',
-      key: '_id',
+
       width: 200,
       render: (record) => {
         return (
           <div>
+            <button
+              style={{ marginRight: '5px' }}
+              onClick={(e) => {
+                setEditDialog(true);
+                dispatch(changeSelectedWord({ selectedWord: record }));
+              }}
+              className="btn btn-warning"
+            >
+              Düzenle
+            </button>
             <button
               onClick={(e) => {
                 setDeleteDialog(true);
@@ -79,10 +94,16 @@ const Words = () => {
             <DeleteDialog
               isOpen={deleteDialog}
               deleteFunction={() => {
-                dispatch(deleteWord(record));
+                dispatch(deleteWord(record._id));
               }}
               onClose={() => {
                 setDeleteDialog(false);
+              }}
+            />
+            <EditWordDialog
+              isOpen={editDialog}
+              onClose={() => {
+                setEditDialog(false);
               }}
             />
           </div>
