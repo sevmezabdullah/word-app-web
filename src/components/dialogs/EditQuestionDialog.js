@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Dialog,
   DialogActions,
@@ -6,11 +6,7 @@ import {
   DialogTitle,
 } from '@mui/material';
 
-import { useDispatch, useSelector } from 'react-redux';
-
 const EditQuestionDialog = ({ isOpen, onClose }) => {
-  const dispatch = useDispatch();
-
   return (
     <Dialog fullWidth open={isOpen} onClose={onClose}>
       <DialogTitle>Düzenle</DialogTitle>
