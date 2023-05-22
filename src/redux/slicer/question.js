@@ -6,6 +6,7 @@ const initialState = {
   questions: [],
   questionsContainer: [],
   isLoading: false,
+  selectedQuestion: null,
 };
 
 export const getAllQuestion = createAsyncThunk('question/getAll', async () => {
@@ -34,6 +35,12 @@ const questionSlice = createSlice({
   name: 'question',
   initialState,
 
+  reducers: {
+    changeSelectedQuestion(state, action) {
+      state.selectedQuestion = action.payload.selectedQuestion;
+    },
+  },
+
   extraReducers: (builder) => {
     builder.addCase(getAllQuestion.fulfilled, (state, action) => {
       state.questions = action.payload;
@@ -56,4 +63,5 @@ const questionSlice = createSlice({
       });
   },
 });
+export const { changeSelectedQuestion } = questionSlice.actions;
 export default questionSlice.reducer;

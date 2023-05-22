@@ -1,7 +1,11 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllQuestion, deleteQuestion } from '../../redux/slicer/question';
+import {
+  getAllQuestion,
+  deleteQuestion,
+  changeSelectedQuestion,
+} from '../../redux/slicer/question';
 import { Table } from 'antd';
 import AddQuestionDialog from '../../components/dialogs/AddQuestionDialog';
 import DeleteDialog from '../../components/dialogs/DeleteDialog';
@@ -74,6 +78,14 @@ const Questions = () => {
       render: (record) => {
         return (
           <div>
+            <button
+              onClick={() => {
+                dispatch(changeSelectedQuestion({ selectedQuestion: record }));
+              }}
+              className="btn btn-warning ms-3"
+            >
+              Düzenle
+            </button>
             <button
               onClick={() => {
                 setIsDeleteDialogOpen(true);

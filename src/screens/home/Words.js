@@ -14,9 +14,10 @@ import EditWordDialog from '../../components/dialogs/EditWordDialog';
 const Words = () => {
   const dispatch = useDispatch();
   const words = useSelector((state) => state.words.words);
+  const selectedWord = useSelector((state) => state.words.selectedWord);
 
   const [isWordDetailDialogOpen, setIsWordDetailDialogOpen] = useState(false);
-  const [selectedWord, setSelectedWord] = useState(null);
+  /*  const [selectedWord, setSelectedWord] = useState(null); */
   const [isAddWordDialogOpen, setIsWordDialogOpen] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [editDialog, setEditDialog] = useState(false);
@@ -55,7 +56,7 @@ const Words = () => {
         return (
           <button
             onClick={() => {
-              setSelectedWord(record);
+              dispatch(changeSelectedWord({ selectedWord: record }));
               setIsWordDetailDialogOpen(true);
             }}
             className="btn btn-success"
@@ -86,26 +87,12 @@ const Words = () => {
             <button
               onClick={(e) => {
                 setDeleteDialog(true);
+                dispatch(changeSelectedWord({ selectedWord: record }));
               }}
               className="btn btn-danger"
             >
               Sil
             </button>
-            <DeleteDialog
-              isOpen={deleteDialog}
-              deleteFunction={() => {
-                dispatch(deleteWord(record._id));
-              }}
-              onClose={() => {
-                setDeleteDialog(false);
-              }}
-            />
-            <EditWordDialog
-              isOpen={editDialog}
-              onClose={() => {
-                setEditDialog(false);
-              }}
-            />
           </div>
         );
       },
@@ -150,6 +137,21 @@ const Words = () => {
           }}
         />
       </div>
+      <DeleteDialog
+        isOpen={deleteDialog}
+        deleteFunction={() => {
+          dispatch(deleteWord(selectedWord._id));
+        }}
+        onClose={() => {
+          setDeleteDialog(false);
+        }}
+      />
+      <EditWordDialog
+        isOpen={editDialog}
+        onClose={() => {
+          setEditDialog(false);
+        }}
+      />
     </>
   );
 };

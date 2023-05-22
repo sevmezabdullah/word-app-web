@@ -52,7 +52,7 @@ const wordsSlice = createSlice({
         state.words.push(action.payload);
       })
       .addCase(deleteWord.fulfilled, (state, action) => {
-        state.words = state.wordsContainer;
+        state.words = action.payload;
       });
   },
 });
