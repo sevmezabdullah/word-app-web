@@ -87,7 +87,7 @@ const Quizs = () => {
     },
   ];
   return (
-    <>
+    <div className="quizesBackground">
       <Table
         rowKey={(record) => record._id}
         dataSource={quizs}
@@ -114,7 +114,7 @@ const Quizs = () => {
           setIsQuizDialogOpen(false);
         }}
       />
-    </>
+    </div>
   );
 };
 

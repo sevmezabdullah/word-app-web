@@ -1,13 +1,21 @@
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-}
-
 .background {
   background-color: purple;
   width: '100%';
   height: '100%';
+}
+.categoriesBackground {
+  background-color: white;
+  height: 100%;
+}
+.usersBackground {
+  background-color: white;
+  height: 100%;
+}
+.quizesBackground {
+  background-color: white;
+  height: 100%;
+}
+.questionBackground {
+  background-color: white;
+  height: 100%;
 }

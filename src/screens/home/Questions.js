@@ -101,7 +101,7 @@ const Questions = () => {
     },
   ];
   return (
-    <>
+    <div className="questionBackground">
       <Table
         rowKey={(record) => record._id}
         dataSource={questions}
@@ -121,7 +121,6 @@ const Questions = () => {
           Soru Oluştur
         </button>
       </div>
-
       <AddQuestionDialog
         isOpen={isAddQuestionDialogOpen}
         onClose={() => {
@@ -135,7 +134,7 @@ const Questions = () => {
         }}
         deleteFunction={deleleteQuestion}
       />
-    </>
+    </div>
   );
 };
 

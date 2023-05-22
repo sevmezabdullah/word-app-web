@@ -7,6 +7,7 @@ const LOGOUT_URL = localUrls.LOGOUT_URL;
 const initialState = {
   user: null,
   token: null,
+  error: null,
 };
 
 const storeUser = async (user, email) => {
@@ -54,7 +55,13 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(signIn.fulfilled, (state, action) => {
-        state.user = action.payload;
+        if (action.payload.isLogged) {
+          state.user = action.payload;
+          state.error = null;
+        } else {
+          state.user = null;
+          state.error = 'Giriş başarısız oldu. Lütfen tekrar deneyin.';
+        }
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state.user = action.payload;

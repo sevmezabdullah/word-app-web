@@ -11,52 +11,52 @@ import { useSelector } from 'react-redux';
 const EditWordDialog = ({ isOpen, onClose }) => {
   /*   const dispatch = useDispatch(); */
   const selectedWord = useSelector((state) => state.words.selectedWord);
-
-  return (
-    <Dialog fullWidth open={isOpen} onClose={onClose}>
-      <DialogTitle>Düzenle</DialogTitle>
-      <DialogContent>
-        <div style={{ overflowY: 'scroll' }}>
-          {selectedWord.words.map((item, index) => {
-            return (
-              <div style={{ marginTop: '5px' }}>
-                <div style={{ display: 'inline' }}>
-                  <input
-                    placeholder={item.meaning}
-                    className="form-control"
-                    type="text"
-                    onChange={(e) => {}}
-                  />
+  if (selectedWord)
+    return (
+      <Dialog fullWidth open={isOpen} onClose={onClose}>
+        <DialogTitle>Düzenle</DialogTitle>
+        <DialogContent>
+          <div style={{ overflowY: 'scroll' }}>
+            {selectedWord.words.map((item, index) => {
+              return (
+                <div style={{ marginTop: '5px' }}>
+                  <div style={{ display: 'inline' }}>
+                    <input
+                      placeholder={item.meaning}
+                      className="form-control"
+                      type="text"
+                      onChange={(e) => {}}
+                    />
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-          <hr />
-        </div>
-        <div style={{ overflowY: 'scroll', height: '100px' }}>
-          {selectedWord.sentences.map((item, index) => {
-            return (
-              <div style={{ marginTop: '5px' }}>
-                <div style={{ display: 'inline' }}>
-                  <input
-                    placeholder={item.meaning}
-                    className="form-control"
-                    type="text"
-                  />
+              );
+            })}
+            <hr />
+          </div>
+          <div style={{ overflowY: 'scroll', height: '100px' }}>
+            {selectedWord.sentences.map((item, index) => {
+              return (
+                <div style={{ marginTop: '5px' }}>
+                  <div style={{ display: 'inline' }}>
+                    <input
+                      placeholder={item.meaning}
+                      className="form-control"
+                      type="text"
+                    />
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      </DialogContent>
-      <DialogActions>
-        <button onClick={onClose} className="btn btn-danger">
-          Vazgeç
-        </button>
-        <button className="btn btn-warning">Güncelle</button>
-      </DialogActions>
-    </Dialog>
-  );
+              );
+            })}
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <button onClick={onClose} className="btn btn-danger">
+            Vazgeç
+          </button>
+          <button className="btn btn-warning">Güncelle</button>
+        </DialogActions>
+      </Dialog>
+    );
 };
 
 export default EditWordDialog;

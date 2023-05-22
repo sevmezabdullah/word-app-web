@@ -143,7 +143,7 @@ const Categories = () => {
   ];
   if (categories !== null) {
     return (
-      <>
+      <div className="categoriesBackground">
         <Table
           columns={columns}
           dataSource={categories}
@@ -192,7 +192,7 @@ const Categories = () => {
             dispatch(deleteCategoryById(currentCategory));
           }}
         />
-      </>
+      </div>
     );
   }
 };

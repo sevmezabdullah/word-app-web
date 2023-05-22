@@ -9,9 +9,7 @@ import React from 'react';
 const LogoutDialog = ({ isOpen, onClose, logout }) => {
   return (
     <Dialog open={isOpen} onClose={onClose}>
-      <DialogTitle>
-        <h5>Çıkış yapmak istediğinden emin misin ?</h5>
-      </DialogTitle>
+      <DialogTitle>Çıkış yapmak istediğinden emin misin ?</DialogTitle>
       <DialogContent>
         <p>Oturumunu sonlandırmak üzeresin. Çıkış yapmak istiyor musun ? </p>
       </DialogContent>

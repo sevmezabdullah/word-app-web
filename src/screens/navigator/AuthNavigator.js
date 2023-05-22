@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from '../../redux/slicer/user';
-
+import '../../login.css';
 const AuthNavigator = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
+  const error = useSelector((state) => state.user.error);
 
   const emailChangeHandler = (e) => {
     setEmail(e.target.value);
@@ -17,52 +18,52 @@ const AuthNavigator = () => {
   };
 
   return (
-    <>
-      <div className="background">
-        <div className="form">
-          <h1 className="h1" style={{ textAlign: 'center', color: 'white' }}>
-            Giriş Yap
-          </h1>
-          <div className="card">
-            <div className="form-group">
-              <div>
-                <input
-                  className="form-control col-sm-2"
-                  onChange={emailChangeHandler}
-                  type="text"
-                  name=""
-                  value={email}
-                  id=""
-                  placeholder="Email"
-                />
-              </div>
-              <div style={{ marginTop: 10 }}>
-                <input
-                  className="form-control"
-                  onChange={passwordChangeHandler}
-                  type="password"
-                  value={password}
-                  name=""
-                  id=""
-                  placeholder="Şifre"
-                />
-              </div>
-              <div style={{ justifyContent: 'center' }}>
-                <button
-                  onClick={() => {
-                    dispatch(signIn({ email, password }));
-                  }}
-                  style={{ marginTop: '10px' }}
-                  className="btn btn-success"
-                >
-                  Giriş Yap
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+    <form id="accesspanel" action="login" method="post">
+      <h1 id="litheader">Word App</h1>
+      <div className="inset">
+        <p>
+          <input
+            type="text"
+            name="username"
+            id="email"
+            value={email}
+            onChange={emailChangeHandler}
+            placeholder="Email Adresi"
+          />
+        </p>
+        <p>
+          <input
+            onChange={passwordChangeHandler}
+            type="password"
+            value={password}
+            name="password"
+            id="password"
+            placeholder="Şifre"
+          />
+        </p>
+
+        <input
+          className="loginLoginValue"
+          type="hidden"
+          name="service"
+          value="login"
+        />
       </div>
-    </>
+      {error && (
+        <p style={{ textAlign: 'center', marginBottom: '10px' }}>{error}</p>
+      )}
+      <p className="p-container">
+        <input
+          type="button"
+          name="Login"
+          id="go"
+          value={'Giriş Yap'}
+          onClick={() => {
+            dispatch(signIn({ email, password }));
+          }}
+        />
+      </p>
+    </form>
   );
 };
 

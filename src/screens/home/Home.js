@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { getUsersStat } from '../../redux/slicer/users';
 import Select from 'react-select';
 import { options } from '../../constants/years';
+
 const sumData = (data) => {
   let result = 0;
 
@@ -52,18 +53,20 @@ const Home = () => {
   ];
 
   const renderLineChart = (
-    <LineChart
-      width={800}
-      height={300}
-      data={data}
-      margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-    >
-      <Line type="monotone" dataKey="kullanıcı" stroke="#8884d8" />
-      <CartesianGrid stroke="#ccc" strokeDasharray="8 8" />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip />
-    </LineChart>
+    <div className="col-sm-6 col-md-6 col-lg-8">
+      <LineChart
+        width={800}
+        height={300}
+        data={data}
+        margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+      >
+        <Line type="monotone" dataKey="kullanıcı" stroke="#8884d8" />
+        <CartesianGrid stroke="#ccc" strokeDasharray="8 8" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+      </LineChart>
+    </div>
   );
 
   const selectChangeHandler = (e) => {
@@ -71,7 +74,7 @@ const Home = () => {
   };
 
   return (
-    <div style={{ paddingTop: '20px', padding: '20px' }}>
+    <div>
       <div
         className="card"
         style={{
@@ -81,7 +84,9 @@ const Home = () => {
       >
         <div className="card-body">
           <div>
-            <h4>Aylık ve Yıllık Bazlı Kullanıcı İstatistikleri</h4>
+            <h4 className="h4" style={{ color: 'black' }}>
+              Aylık ve Yıllık Bazlı Kullanıcı İstatistikleri
+            </h4>
             <Select
               defaultValue={options[0]}
               options={options}
@@ -91,9 +96,9 @@ const Home = () => {
           <hr />
           {renderLineChart}
 
-          <p>
+          <p style={{ color: 'black' }}>
             {selectedYear} yılı toplam kayıt olan kullanıcı sayısı:
-            <b>{sumData(statsValues)}</b>
+            <b style={{ fontWeight: 'bold' }}>{sumData(statsValues)}</b>
           </p>
         </div>
       </div>

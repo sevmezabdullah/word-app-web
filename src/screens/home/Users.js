@@ -114,17 +114,16 @@ const Users = () => {
     },
   ];
   return (
-    <>
+    <div className="usersBackground">
       <Table
         columns={columns}
         dataSource={users.users}
         rowKey={(record) => record._id}
       />
-
       <p>
         Toplam <b>{users.count}</b> kullanıcı kayıtlı.
       </p>
-    </>
+    </div>
   );
 };
 
