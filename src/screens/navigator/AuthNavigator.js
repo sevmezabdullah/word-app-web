@@ -18,52 +18,57 @@ const AuthNavigator = () => {
   };
 
   return (
-    <form id="accesspanel" action="login" method="post">
-      <h1 id="litheader">Word App</h1>
-      <div className="inset">
-        <p>
-          <input
-            type="text"
-            name="username"
-            id="email"
-            value={email}
-            onChange={emailChangeHandler}
-            placeholder="Email Adresi"
-          />
-        </p>
-        <p>
-          <input
-            onChange={passwordChangeHandler}
-            type="password"
-            value={password}
-            name="password"
-            id="password"
-            placeholder="Şifre"
-          />
-        </p>
+    <div
+      className="loginPageStyle"
+      style={{ backgroundColor: 'gray', width: '100%', height: 943 }}
+    >
+      <form id="accesspanel" action="login" method="post">
+        <h1 id="litheader">Word App</h1>
+        <div className="inset">
+          <p>
+            <input
+              type="text"
+              name="username"
+              id="email"
+              value={email}
+              onChange={emailChangeHandler}
+              placeholder="Email Adresi"
+            />
+          </p>
+          <p>
+            <input
+              onChange={passwordChangeHandler}
+              type="password"
+              value={password}
+              name="password"
+              id="password"
+              placeholder="Şifre"
+            />
+          </p>
 
-        <input
-          className="loginLoginValue"
-          type="hidden"
-          name="service"
-          value="login"
-        />
-      </div>
-      {error && (
-        <p style={{ textAlign: 'center', marginBottom: '10px' }}>{error}</p>
-      )}
-      <p className="p-container">
-        <input
-          type="button"
-          name="Login"
-          id="go"
-          value={'Giriş Yap'}
-          onClick={() => {
-            dispatch(signIn({ email, password }));
-          }}
-        />
-      </p>
-    </form>
+          <input
+            className="loginLoginValue"
+            type="hidden"
+            name="service"
+            value="login"
+          />
+        </div>
+        {error && (
+          <p style={{ textAlign: 'center', marginBottom: '10px' }}>{error}</p>
+        )}
+        <p className="p-container">
+          <input
+            type="button"
+            name="Login"
+            id="go"
+            value={'Giriş Yap'}
+            onClick={() => {
+              dispatch(signIn({ email, password }));
+            }}
+          />
+        </p>
+      </form>
+    </div>
   );
 };
 
