@@ -35,7 +35,7 @@
     "xlsx": "^0.18.5"
   },
   "scripts": {
-    "start": "react-scripts start ",
+    "start": "react-scripts start",
     "build": "react-scripts build && cp -r build /var/www/word-web && sudo service nginx restart",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
