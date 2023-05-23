@@ -74,33 +74,87 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div
-        className="card"
         style={{
-          width: '850px',
-          height: '450px',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-around',
         }}
       >
-        <div className="card-body">
-          <div>
-            <h4 className="h4" style={{ color: 'black' }}>
-              Aylık ve Yıllık Bazlı Kullanıcı İstatistikleri
-            </h4>
-            <Select
-              defaultValue={options[0]}
-              options={options}
-              onChange={selectChangeHandler}
-            />
-          </div>
-          <hr />
-          {renderLineChart}
+        <div
+          className="card"
+          style={{
+            width: '850px',
+            height: '450px',
+            margin: '10px',
+          }}
+        >
+          <div className="card-body">
+            <div>
+              <h4 className="h4" style={{ color: 'black' }}>
+                Aylık ve Yıllık Bazlı Kullanıcı İstatistikleri
+              </h4>
+              <Select
+                defaultValue={options[0]}
+                options={options}
+                onChange={selectChangeHandler}
+              />
+            </div>
+            <hr />
+            {renderLineChart}
 
-          <p style={{ color: 'black' }}>
-            {selectedYear} yılı toplam kayıt olan kullanıcı sayısı:
-            <b style={{ fontWeight: 'bold' }}>{sumData(statsValues)}</b>
-          </p>
+            <p style={{ color: 'black' }}>
+              {selectedYear} yılı toplam kayıt olan kullanıcı sayısı:
+              <b style={{ fontWeight: 'bold' }}>{sumData(statsValues)}</b>
+            </p>
+          </div>
         </div>
+
+        <div
+          className="card"
+          style={{
+            width: '850px',
+            height: '450px',
+            margin: '10px',
+            backgroundColor: 'red',
+          }}
+        >
+          <h1 className="h1" style={{ color: 'white' }}>
+            Dillere Göre Kayıt olan kullanıcılar
+          </h1>
+        </div>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+        }}
+      >
+        <div
+          className="card"
+          style={{
+            width: '850px',
+            height: '450px',
+            margin: '10px',
+            backgroundColor: 'red',
+          }}
+        >
+          <h1 className="h1" style={{ color: 'white' }}>
+            Anlık Kullanıcı Sayısı
+          </h1>
+        </div>
+
+        <div
+          className="card"
+          style={{
+            width: '850px',
+            height: '450px',
+            margin: '10px',
+            backgroundColor: 'red',
+          }}
+        ></div>
       </div>
     </div>
   );

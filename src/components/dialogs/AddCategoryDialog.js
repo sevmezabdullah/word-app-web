@@ -45,6 +45,23 @@ const AddCategoryDialog = ({ isOpen, onClose }) => {
       <DialogTitle>Kategori Oluştur</DialogTitle>
       <DialogContent>
         <div className="container">
+          <h6>Dil Kodları</h6>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              margin: '10px',
+            }}
+          >
+            <p>tr Türkçe</p>
+            <p>es İspanyolca</p>
+            <p>gb İngilizce</p>
+            <p>ar Arapça</p>
+            <p>fr Fransızca</p>
+            <p>de Almanca</p>
+            <p>zh-cht Çince</p>
+          </div>
           <div className="form-group">
             <div className="mb-3">
               <label htmlFor="formFile" className="form-label">

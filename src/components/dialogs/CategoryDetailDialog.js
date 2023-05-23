@@ -10,7 +10,7 @@ const CategoryDetailDialog = ({ isOpen, onClose, languages, meanings }) => {
     <Dialog open={isOpen} onClose={onClose}>
       <DialogTitle>Desteklenen Diller</DialogTitle>
       <DialogContent>
-        <table className="table">
+        <table className="table ">
           <thead>
             <tr>
               <th scope="col">Dil</th>

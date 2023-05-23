@@ -24,57 +24,57 @@ const Words = () => {
   useEffect(() => {
     dispatch(getAllWords());
   }, [dispatch]);
-
-  const columns = [
-    {
-      title: 'Word ID',
-      dataIndex: '_id',
-      key: '_id',
-      width: 100,
-    },
-
-    {
-      title: 'Türkçe',
-      dataIndex: 'words',
-      key: 'words',
-      width: 100,
-      render: (record) => {
-        //TODO
-        //sadece türkçe kelimeleri getirecek şekilde tekrar ayarlanacak
-        let meaning = null;
-        record.forEach((word) => {
-          if (word.langCode === 'tr') {
-            meaning = word.meaning;
-          }
-        });
-        return <div>{meaning}</div>;
+  if (words) {
+    const columns = [
+      {
+        title: 'Word ID',
+        dataIndex: '_id',
+        key: '_id',
+        width: 100,
       },
-    },
-    {
-      title: 'İçerik',
-      render: (record) => {
-        return (
-          <button
-            onClick={() => {
-              dispatch(changeSelectedWord({ selectedWord: record }));
-              setIsWordDetailDialogOpen(true);
-            }}
-            className="btn btn-success"
-          >
-            Detaylar
-          </button>
-        );
+
+      {
+        title: 'Türkçe',
+        dataIndex: 'words',
+        key: 'words',
+        width: 100,
+        render: (record) => {
+          //TODO
+          //sadece türkçe kelimeleri getirecek şekilde tekrar ayarlanacak
+          let meaning = null;
+          record.forEach((word) => {
+            if (word.langCode === 'tr') {
+              meaning = word.meaning;
+            }
+          });
+          return <div>{meaning}</div>;
+        },
       },
-    },
-
-    {
-      title: 'İşlemler',
-
-      width: 200,
-      render: (record) => {
-        return (
-          <div>
+      {
+        title: 'İçerik',
+        render: (record) => {
+          return (
             <button
+              onClick={() => {
+                dispatch(changeSelectedWord({ selectedWord: record }));
+                setIsWordDetailDialogOpen(true);
+              }}
+              className="btn btn-success"
+            >
+              Detaylar
+            </button>
+          );
+        },
+      },
+
+      {
+        title: 'İşlemler',
+
+        width: 200,
+        render: (record) => {
+          return (
+            <div>
+              {/*        <button
               style={{ marginRight: '5px' }}
               onClick={(e) => {
                 setEditDialog(true);
@@ -83,77 +83,77 @@ const Words = () => {
               className="btn btn-warning"
             >
               Düzenle
-            </button>
+            </button> */}
+              <button
+                onClick={(e) => {
+                  setDeleteDialog(true);
+                  dispatch(changeSelectedWord({ selectedWord: record }));
+                }}
+                className="btn btn-danger"
+              >
+                Sil
+              </button>
+            </div>
+          );
+        },
+      },
+    ];
+    return (
+      <>
+        <Table
+          dataSource={words ?? []}
+          columns={columns}
+          rowKey={(record) => record._id}
+        />
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <p>
+            Toplam <b>{words.length}</b> kelime kayıtlı.
+          </p>
+
+          <div>
             <button
               onClick={(e) => {
-                setDeleteDialog(true);
-                dispatch(changeSelectedWord({ selectedWord: record }));
+                setIsWordDialogOpen(true);
               }}
-              className="btn btn-danger"
+              className="btn btn-success"
+              style={{ padding: 10, margin: 10 }}
             >
-              Sil
+              Kelime Ekle
             </button>
           </div>
-        );
-      },
-    },
-  ];
 
-  return (
-    <>
-      <Table
-        dataSource={words}
-        columns={columns}
-        rowKey={(record) => record._id}
-      />
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <p>
-          Toplam <b>{words.length}</b> kelime kayıtlı.
-        </p>
-
-        <div>
-          <button
-            onClick={(e) => {
-              setIsWordDialogOpen(true);
+          <AddWordDialog
+            isOpen={isAddWordDialogOpen}
+            onClose={() => {
+              setIsWordDialogOpen(false);
             }}
-            className="btn btn-success"
-            style={{ padding: 10, margin: 10 }}
-          >
-            Kelime Ekle
-          </button>
+          />
+          <WordDetailDialog
+            selectedWord={selectedWord}
+            isOpen={isWordDetailDialogOpen}
+            onClose={() => {
+              setIsWordDetailDialogOpen(false);
+            }}
+          />
+          <DeleteDialog
+            isOpen={deleteDialog}
+            deleteFunction={() => {
+              dispatch(deleteWord(selectedWord._id));
+            }}
+            onClose={() => {
+              setDeleteDialog(false);
+            }}
+          />
+          <EditWordDialog
+            isOpen={editDialog}
+            onClose={() => {
+              setEditDialog(false);
+            }}
+          />
         </div>
-
-        <AddWordDialog
-          isOpen={isAddWordDialogOpen}
-          onClose={() => {
-            setIsWordDialogOpen(false);
-          }}
-        />
-        <WordDetailDialog
-          selectedWord={selectedWord}
-          isOpen={isWordDetailDialogOpen}
-          onClose={() => {
-            setIsWordDetailDialogOpen(false);
-          }}
-        />
-      </div>
-      <DeleteDialog
-        isOpen={deleteDialog}
-        deleteFunction={() => {
-          dispatch(deleteWord(selectedWord._id));
-        }}
-        onClose={() => {
-          setDeleteDialog(false);
-        }}
-      />
-      <EditWordDialog
-        isOpen={editDialog}
-        onClose={() => {
-          setEditDialog(false);
-        }}
-      />
-    </>
-  );
+      </>
+    );
+  }
 };
 
 export default Words;

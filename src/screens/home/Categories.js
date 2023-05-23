@@ -145,6 +145,7 @@ const Categories = () => {
     return (
       <div className="categoriesBackground">
         <Table
+          pagination={{ pageSize: 10 }}
           columns={columns}
           dataSource={categories}
           rowKey={(record) => record._id}

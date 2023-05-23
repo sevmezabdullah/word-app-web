@@ -126,7 +126,6 @@ const AddWordToCategory = ({ isOpen, onClose, category }) => {
       <DialogTitle>Kategoriye Kelime Ekle</DialogTitle>
       <DialogContent>
         <div>
-          <h5>Eklenebilir Kelimeler</h5>
           <Table
             rowKey={(record) => record._id}
             columns={allWordColumns}
@@ -135,12 +134,7 @@ const AddWordToCategory = ({ isOpen, onClose, category }) => {
         </div>
       </DialogContent>
       <DialogActions>
-        <button
-          className="btn btn-success"
-          onClick={() => {
-            onClose();
-          }}
-        >
+        <button className="btn btn-success" onClick={onClose}>
           Tamamla
         </button>
       </DialogActions>
